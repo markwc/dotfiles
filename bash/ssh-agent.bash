@@ -2,6 +2,7 @@
 
 # ssh-agent
 
+SSH_ENV=$HOME/.ssh/environment
 
 function start_agent {
      echo "Initialising new SSH agent..."
@@ -22,6 +23,5 @@ then
      }
 elif [ -z "$SSH_AUTH_SOCK" ]
 then
-     SSH_ENV=$HOME/.ssh/environment
      start_agent;
 fi
