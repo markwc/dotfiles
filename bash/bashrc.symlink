@@ -1,0 +1,11 @@
+# ~/.bashrc: executed by bash(1) for interactive shells.
+
+# If not running interactively, don't do anything
+[[ "$-" != *i* ]] && return
+
+# get all of our .bash files
+for f in `find $HOME/.dotfiles/ -name '*.bash'`
+do
+  echo "Sourcing $f"
+  source $f
+done
