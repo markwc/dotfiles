@@ -1,4 +1,10 @@
+#!/bin/bash
+
 # ssh-agent
+
+# don't initialize ssh-agent if we already have a connection
+[ -z "$SSH_AUTH_SOCK" ] && exit
+
 SSH_ENV=$HOME/.ssh/environment
 
 function start_agent {
