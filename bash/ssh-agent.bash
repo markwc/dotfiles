@@ -2,10 +2,6 @@
 
 # ssh-agent
 
-# don't initialize ssh-agent if we already have a connection
-[ -z "$SSH_AUTH_SOCK" ] && exit
-
-SSH_ENV=$HOME/.ssh/environment
 
 function start_agent {
      echo "Initialising new SSH agent..."
@@ -17,13 +13,15 @@ function start_agent {
 }
 
 # Source SSH settings, if applicable
-
-if [ -f "${SSH_ENV}" ]; then
+if [ -f "${SSH_ENV}" ]
+then
      . ${SSH_ENV} > /dev/null
      #ps ${SSH_AGENT_PID} doesn't work under cywgin
      ps -ef | grep ${SSH_AGENT_PID} | grep ssh-agent$ > /dev/null || {
          start_agent;
      }
-else
+elif [ -z "$SSH_AUTH_SOCK" ]
+then
+     SSH_ENV=$HOME/.ssh/environment
      start_agent;
 fi
