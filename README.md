@@ -8,7 +8,7 @@ configurations, git prompts, etc. For example, `.bashrc`.
 Install
 -------
 
-    git clone ssh://git@159.62.150.131:7999/~mferguso/dotfiles.git ~.dotfiles
+    git clone ssh://git@stash.csw.l-3com.com:7999/~mferguso/dotfiles.git ~.dotfiles
     cd .dotfiles
     ./bootstrap
 
