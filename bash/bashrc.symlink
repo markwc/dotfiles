@@ -3,6 +3,9 @@
 # If not running interactively, don't do anything
 [[ "$-" != *i* ]] && return
 
+# Add our own bin
+PATH="$HOME/bin:$PATH"
+
 # get all of our .bash files
 for f in `find $HOME/.dotfiles/ -name '*.bash'`
 do
