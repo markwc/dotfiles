@@ -80,22 +80,13 @@ NewLine="\n"
 Jobs="\j"
 host=`uname -n`
 
-GIT_PS1_SHOWDIRTYSTATE=true
-# This PS1 snippet was adopted from code for MAC/BSD I saw from: http://allancraig.net/index.php?option=com_content&view=article&id=108:ps1-export-command-for-git&catid=45:general&Itemid=96
-# I tweaked it to work on UBUNTU 11.04 & 11.10 plus made it mo' better
-
-#export PS1=$IBlack$Time12h$Color_Off'$(git branch &>/dev/null;\
-export PS1=$IBlack$host$Color_Off'$(git branch &>/dev/null;\
-if [ $? -eq 0 ]; then \
-  echo " '$BYellow$PathShort$Color_Off'$(echo `git status` | grep "nothing to commit" > /dev/null 2>&1; \
-  if [ "$?" -eq "0" ]; then \
-    # @4 - Clean repository - nothing to commit
-    echo " '[$Green'"$(__git_ps1 "%s")"'$Color_Off]'"; \
-  else \
-    # @5 - Changes to working tree
-    echo " '[$IRed'"$(__git_ps1 "%s")"'$Color_Off]'"; \
-  fi)\$ "; \
-else \
-  # @2 - Prompt when not in GIT repo
-  echo " '$Yellow$PathShort$Color_Off'\$ "; \
-fi)'
+if [ -s "$HOME/.dotfiles/git/git-prompt.sh" ]
+then
+  source "$HOME/.dotfiles/git/git-prompt.sh"
+  GIT_PS1_SHOWDIRTYSTATE=true
+  GIT_PS1_SHOWSTASHSTATE=true
+  GIT_PS1_SHOWUNTRACKEDFILES=true
+  GIT_PS1_SHOWUPSTREAM=verbose
+  GIT_PS1_SHOWCOLORHINTS=true
+  PROMPT_COMMAND='__git_ps1 "$IBlack\h $BIYellow$PathShort$Color_Off" "\\\$ " " [%s]"'
+fi

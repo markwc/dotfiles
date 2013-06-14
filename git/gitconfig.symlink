@@ -31,3 +31,6 @@
 
 [branch]
 	autosetupmerge = always
+
+[http]
+  sslVerify = false
