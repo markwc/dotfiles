@@ -19,5 +19,5 @@ then
   GIT_PS1_SHOWUNTRACKEDFILES=true
   GIT_PS1_SHOWUPSTREAM=verbose
   GIT_PS1_SHOWCOLORHINTS=true
-  PROMPT_COMMAND='__git_ps1 "\n\[$black\]\u@\h \[$reset\]\[$yellow$bold\]\w\[$reset\]" "\n[\!] \$ " " [%s]"'
+  PROMPT_COMMAND='__git_ps1 "\[$black\]\u@\h \[$reset\]\[$yellow$bold\]\w\[$reset\]" " \$ " " [%s]"'
 fi
