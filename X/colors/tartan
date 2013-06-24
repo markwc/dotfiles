@@ -7,7 +7,7 @@ URxvt*foreground: #DEDEDE
 
 
 ! black
-*color0  : #2E3436
+*color0  : #4B5558
 *color8  : #555753
 ! red
 *color1  : #CC0000
