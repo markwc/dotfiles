@@ -4,7 +4,7 @@
 [[ "$-" != *i* ]] && return
 
 # Add our own bin
-PATH="$HOME/bin:$PATH"
+PATH="$HOME/.dotfiles/bin:$HOME/bin:$PATH"
 
 # get all of our .bash files
 for f in `find $HOME/.dotfiles/ -name '*.bash'`
