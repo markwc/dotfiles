@@ -1,0 +1,49 @@
+#!/bin/bash -eu
+
+program=`basename $0`
+cd `dirname $0`; programDir=`pwd`; cd - > /dev/null
+#source $programDir/../support
+
+# Help usage
+function help {
+    echo "usage:
+    $program <git repo base>
+
+    -h      this.
+    -x      extra debugging output
+
+    "
+    exit 1
+}
+
+quiet=0
+while getopts hx Optionen;
+do
+  case $Optionen in
+    '?'|h) help; exit 1;;
+    x) set -x; export TRACE_ALL="set -x"
+    ;;
+  esac
+done
+
+# strip out any positional args
+shift `expr $OPTIND - 1`
+
+[ $# -gt 1 ] && help
+[ $# -eq 1 ] && ivy_dir=$1/build/tmp/.ivy2
+
+
+# Check to see if args remain, offer help if none found.
+for xmlFile in `find $ivy_dir -name "*.xml" | grep -v default.xml | grep -v abi-check`
+do
+  uses=`cat $xmlFile | perl -ne ' if ( /<dependency/ .. /<\/dep/ ) { s|.*name="([^"]+).*|\1| && print; }' | sort -u`
+  thisModule=`grep module= $xmlFile | awk -F\" '{print $4}'`
+  if [ -n "$thisModule" ]
+  then
+    echo \"$thisModule\"
+    for dep in $uses
+    do
+      echo \"$thisModule\" '->' \"$dep\"
+    done
+  fi
+done
