@@ -2,8 +2,9 @@ Ferg's dotfiles
 ===============
 
 These are Ferg's dotfiles. They personalize things such as aliases, bash
-configurations, git prompts, etc. For example, `.bashrc`.
+configurations, git prompts, etc. For example, `.bashrc`. or `.bash_profile`.
 
+Foobar
 
 Install
 -------

@@ -1,0 +1,9 @@
+#!/bin/bash
+
+artifactory_url="http://phabricator:8081"
+prefix="/artifactory/libs-release/com.l-3com.csw/"
+
+while read package;
+do
+  wget -m --no-parent -I $prefix$package $artifactory_url$prefix$package
+done < $1

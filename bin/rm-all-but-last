@@ -1,0 +1,12 @@
+#!/bin/bash
+
+for dir in `ls`
+do
+  cd $dir
+  numdirs=`find * -maxdepth 0 -type d | wc -l`
+  if [ "$numdirs" -ne "1" ]
+  then
+    rm -rfv `ls -v | head -n -1`
+  fi
+  cd ..
+done
