@@ -7,3 +7,6 @@ inoremap jj <ESC>
 if (&t_Co == 256 || has('gui_running'))
     colorscheme solarized
 endif
+
+" Doxygen toolkit settings
+let g:DoxygenToolkit_commentType = "C++"
