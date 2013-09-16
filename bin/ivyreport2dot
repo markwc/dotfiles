@@ -33,6 +33,8 @@ shift `expr $OPTIND - 1`
 [ $# -eq 1 ] && ivy_dir=$1/build/tmp/.ivy2
 
 
+echo "digraph {"
+echo "rankdir=LR"
 # Check to see if args remain, offer help if none found.
 for xmlFile in `find $ivy_dir -name "*.xml" | grep -v default.xml | grep -v abi-check`
 do
@@ -47,3 +49,4 @@ do
     done
   fi
 done
+echo "}"
