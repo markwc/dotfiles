@@ -3,6 +3,14 @@
 # If not running interactively, don't do anything
 [[ "$-" != *i* ]] && return
 
+# Don't put duplicates in history
+HISTCONTROL=ignoreboth
+
+# Append to this history file. Please don't overwrite it :)
+shopt -s histappend
+HISTSIZE=10000
+HISTFILESIZE=10000
+
 # Add our own bin
 PATH="$HOME/.dotfiles/bin:$HOME/bin:$PATH"
 
