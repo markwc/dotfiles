@@ -34,6 +34,8 @@ URxvt.cursorBlink: true
 URxvt.cursorColor: #657b83
 URxvt.cursorUnderline: false
 
+URxvt.termName: rxvt-256color
+
 !-----------------------------------------------------------------------------
 ! Drop in Solarized colorscheme for Xresources/Xdefaults
 ! http://ethanschoonover.com/solarized
