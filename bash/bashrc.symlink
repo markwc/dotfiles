@@ -20,3 +20,6 @@ do
   echo "Sourcing $f"
   source $f
 done
+
+# get dircolors working
+eval `dircolors -b $HOME/.dir_colors`

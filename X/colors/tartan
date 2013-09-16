@@ -39,8 +39,8 @@ Xft.rgba:       rgb
 Xft.hinting:    true
 Xft.hintstyle:  hintslight
 
-URxvt*font:xft:dejavu sans mono:pixelsize=15
-URxvt*boldFont:xft:dejavu sans mono:pixelsize=15
+URxvt*font:xft:dejavu sans mono:pixelsize=10
+URxvt*boldFont:xft:dejavu sans mono:pixelsize=10
 
 !URxvt*font:xft:dejavu sans mono:pixelsize=12
 !URxvt*boldFont:xft:dejavu sans mono:pixelsize=12
