@@ -79,5 +79,5 @@ then
   GIT_PS1_SHOWUNTRACKEDFILES=true
   GIT_PS1_SHOWUPSTREAM=verbose
   GIT_PS1_SHOWCOLORHINTS=true
-  PROMPT_COMMAND='__git_ps1 "$IBlack\u@\h $Color_Off$BYellow\w$Color_Off" " \$ " " [%s]"'
+  PROMPT_COMMAND='__git_ps1 "$Green\u@\h$Color_Off $Yellow\w$Color_Off" "\$ " " [%s]"'
 fi

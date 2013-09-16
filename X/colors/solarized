@@ -18,16 +18,14 @@ URxvt.internalBorder: 3
 URxvt.lineSpace: 0
 
 URxvt.allow_bold: false
-URxvt*font:xft:dejavu sans mono:pixelsize=10
-URxvt*boldFont:xft:dejavu sans mono:pixelsize=10
+URxvt*font:xft:Monospace:size=9
+URxvt*boldFont:xft:Monospace:size=9
 !!*font:Fixed
 !!*boldFont:Fixed
 
 URxvt.scrollStyle: rxvt
 URxvt.scollBar: false
 
-URxvt.perl-ext-common: default,matches
-URxvt.matcher.button: 1
 URxvt.urlLauncher: firefox
 
 URxvt.cursorBlink: true
