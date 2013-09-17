@@ -18,8 +18,8 @@ URxvt.internalBorder: 3
 URxvt.lineSpace: 0
 
 URxvt.allow_bold: false
-URxvt*font:xft:Monospace:size=9
-URxvt*boldFont:xft:Monospace:size=9
+URxvt*font:xft:Bitstream Vera Sans Mono:style=bold:size=9
+URxvt*boldFont:xft:Bitstream Vera Sans Mono:style=bold:size=9
 !!*font:Fixed
 !!*boldFont:Fixed
 
