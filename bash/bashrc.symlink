@@ -11,8 +11,10 @@ shopt -s histappend
 HISTSIZE=10000
 HISTFILESIZE=10000
 
-# Add our own bin
+# Add our own paths
 PATH="$HOME/.dotfiles/bin:$HOME/bin:$PATH"
+LD_LIBRARY_PATH="$HOME/lib"
+MANPATH="$HOME/share/man:$MANPATH"
 
 # get all of our .bash files
 for f in `find $HOME/.dotfiles/ -name '*.bash'`
