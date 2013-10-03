@@ -1,0 +1,22 @@
+### Personal stuff
+
+alias sv    'source activate'
+alias lc    '\ls --color'
+alias ls    '\ls -F'
+alias la    '\ls -aF'
+alias ll    '\ls -alF'
+alias pu    'pushd'
+alias po    'popd'
+alias cl    'rm *.~*~'
+alias rgrep 'find . | xargs grep -i $1'
+alias emacs 'emacs -r'
+
+### ClearCase stuff
+
+alias ctlsb   'ct lsbl -stream $MYPROJ-integration@/project/tseries/genx-pvob | grep -v " stream: " | grep -v " component: "'
+alias ctlsc   'ct lspriv | grep -v checkedout'
+alias ctlse   'ct ls -r | grep eclipse'
+alias ctlsv   'ct ls -r -view_only'
+alias ctclean 'ct lspriv | grep -v checkedout | xargs rm -rf'
+
+### All done
