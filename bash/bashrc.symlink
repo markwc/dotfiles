@@ -8,11 +8,12 @@ HISTCONTROL=ignoreboth
 
 # Append to this history file. Please don't overwrite it :)
 shopt -s histappend
-HISTSIZE=10000
-HISTFILESIZE=10000
+HISTSIZE=1000000
+HISTFILESIZE=1000000
 
 # Add our own paths
 PATH="$HOME/.dotfiles/bin:$HOME/bin:$PATH"
+CDPATH="$HOME:$HOME/src"
 LD_LIBRARY_PATH="$HOME/lib"
 MANPATH="$HOME/share/man:$MANPATH"
 
