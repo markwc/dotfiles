@@ -1,0 +1,212 @@
+(custom-set-variables
+ '(user-mail-address "mark.w.christiansen@l-3com.com"))
+(setq inhibit-startup-message t)
+(setq load-path (cons "~/.emacs.d/site-lisp"  load-path))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Theme stuf
+;; to reload : meta-x load-file .emacs
+;; to reload one line/function, at end of line type C-xC-e
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;(setq default-frame-alist
+;      '((width             . 80)
+;	(height            . 40)
+;	(foreground-color  . "white")
+;	(background-color  . "black")
+;	(cursor-color      . "red")))
+
+(setq auto-mode-alist
+      (cons '("\\.txt\\'" . outline-mode) auto-mode-alist))
+
+(autoload 'markdown-mode "markdown-mode" "For editing Markdown files" t)
+(setq auto-mode-alist (cons '("\\.md\\'" . markdown-mode) auto-mode-alist))
+
+
+;; (autoload 'google-c-style "google-c-style.el"
+;;  "google mode" t)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Matlab Stuff
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(autoload 'matlab-mode "matlab" "Enter Matlab mode." t)
+(setq auto-mode-alist (cons '("\\.m\\'" . matlab-mode) auto-mode-alist))
+(autoload 'matlab-shell "matlab" "Interactive Matlab mode." t)
+(setq matlab-indent-function t)	; if you want function bodies indented
+(setq matlab-verify-on-save-flag nil)	; turn off auto-verify on save
+(defun my-matlab-mode-hook ()
+  (setq fill-column 76))		; where auto-fill should wrap
+(add-hook 'matlab-mode-hook 'my-matlab-mode-hook)
+(defun my-matlab-shell-mode-hook ()
+  '())
+(add-hook 'matlab-shell-mode-hook 'my-matlab-shell-mode-hook)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ClearCase stuff
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;(load "clearcase")
+;(autoload 'visual-basic-mode "visual-basic-mode" "Visual Basic mode." t)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Settings based on lisp/site-init.el for Emacs 20.3
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Ensure 'emacs-major-version defined (first introduced in version 19.23):
+(if (not (boundp 'emacs-major-version)) (setq emacs-major-version 19))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; C-mode variables and bindings:
+
+					;(set-variable 'c-tab-always-indent t)		;; indent regardless
+(set-variable 'c-tab-always-indent t)	;; indent from LHS only
+
+;; Note: c-mode-common-hook occurs during both C and C++ autoloads,
+;; c-mode-hook occurs during C autoloads only.  c-mode-base-map affects both
+;; C and C++ bindings, c-mode-map affects C bindings only.
+
+(add-hook 'c-mode-common-hook 'c-mode-site)
+;; (add-hook 'c-mode-common-hook 'google-set-c-style)
+(defun c-mode-site ()
+  "Perform site-specific c-mode customization"
+  ;; substatement-open: indentation of { following a control statement
+  ;; (see lisp/progmodes/cc-styles.el for more options)
+  (c-add-style  "gnu2"  '("gnu" (c-offsets-alist . (
+						    (substatement-open . 0)
+                                                    (arglist-intro . +)
+                                                    (arglist-cont-nonempty . +)
+						    (arglist-cont . 0)
+						    (arglist-close . 0)
+						    )))
+		t)
+
+  ;; Uncomment the following for case sensitive searches:
+  ;;(define-key c-mode-base-map "\M-r" 'query-replace-case-sensitive)
+  ;;(define-key c-mode-base-map "\C-s" 'isearch-forward-case-sensitive)
+  ;;(define-key c-mode-base-map "\C-r" 'isearch-backward-case-sensitive)
+
+  ;; Uncomment the following for NON-case sensitive searches:
+  (define-key c-mode-base-map "\M-r" 'query-replace)
+  (define-key c-mode-base-map "\C-s" 'isearch-forward)
+  (define-key c-mode-base-map "\C-r" 'isearch-backward)
+  )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Meta commands:
+(global-set-key "\M-r" 'query-replace)
+(global-set-key "\M-R" 'query-replace-regexp) ;; NB: uses upper-case "R"
+(global-set-key "\M-\C-s" 'isearch-forward-regexp)
+(global-set-key "\M-\C-r" 'isearch-backward-regexp)
+(global-set-key "\M-#" 'indent-entire-buffer)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; eXtended commands:
+(global-set-key "\C-xg" 'goto-line)
+(global-set-key "\C-x\C-i" 'insert-file)
+(global-set-key "\C-x\C-m" 'toggle-read-only)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Miscellaneous:
+(global-set-key "\C-x=" 'what-line)
+(global-set-key "\C-z" 'goto-line)
+(setq delete-old-versions t
+      kept-new-versions 6
+      kept-old-versions 2
+      version-control t)
+(setq backup-directory-alist `(("." . "~/.saves")))
+(setq backup-by-copying-when-linked t)	; Preserve hard-links
+(setq auto-save-default nil)		; Disabled
+(setq auto-save-list-file-prefix nil)	; Learn to use ^X^S
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Color settings for version 21.x and below (not supported by 22.x):
+
+(if (and (eq window-system 'x) (<= emacs-major-version 21))
+    (progn
+      ;; This is the color for keywords.
+      (set-face-foreground 'bold "blue") 
+      ;; This is the color for function declarations/defines.
+      (set-face-foreground 'bold-italic "red")
+      ;; This is the color for comments and type. 
+      (set-face-foreground 'italic "cadetblue")
+      ;; This is the colors for strings.
+      (set-face-foreground 'underline "orangered")
+      
+      ;; These lines turn on colored keywords as 'bold.
+      (require 'font-lock)
+
+      (setq c-font-lock-keywords   c-font-lock-keywords-2
+	    c++-font-lock-keywords c-font-lock-keywords-2)
+      (add-hook 'c-mode-common-hook
+		(function (lambda () (font-lock-mode 1))))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; EOF.
+;; I hate tabs!
+(setq-default indent-tabs-mode nil)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(c-report-syntactic-errors t)
+ '(inhibit-startup-screen t))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+
+;; ==================== 
+;; insert date and time 
+
+(defvar current-date-time-format "%D %a %X")
+(defvar current-date-format "%a %d %b %Y" 
+  "Format of date to insert with `insert-current-date' func 
+See help of `format-time-string' for possible replacements") 
+;;(defvar current-time-format "%a %H:%M:%S" 
+(defvar current-time-format "%H:%M:%S"
+  "Format of date to insert with `insert-current-time' func. 
+Note the weekly scope of the command's precision.") 
+(defun insert-current-date () 
+  "insert the current date and time into current buffer."
+  (interactive) 
+  (insert (format-time-string current-date-time-format (current-time)))
+  ) 
+(defun insert-current-time () 
+  "insert the current time (1-week scope) into the current buffer." 
+  (interactive) 
+  (insert (format-time-string current-time-format (current-time))) 
+  ) 
+(defun insert-debug-line ()
+  "Insert debug line at cursor point."
+  (interactive)
+  (insert "printf(\"<%s>\\n\", __FUNCTION__);"))
+
+(global-set-key "\C-c\C-d" 'insert-current-date) 
+(global-set-key "\C-c\C-t" 'insert-current-time)
+(global-set-key "\C-c\C-f" 'insert-debug-line)
+(global-font-lock-mode 1)
+
+;; ==================== 
+;; local limited version control
+; (setq version-control nil)
+; (setq-default delete-old-versions t)
+
+(show-paren-mode t)
+(defun whack-whitespace (arg)
+  "Delete all white space from point to the next word.  With prefix ARG
+    delete across newlines as well.  The only danger in this is that you
+    don't have to actually be at the end of a word to make it work.  It
+    skips over to the next whitespace and then whacks it all to the next
+    word."
+  (interactive "P")
+  (let ((regexp (if arg "[ \t\n]+" "[ \t]+")))
+    (re-search-forward regexp nil t)
+    (replace-match "" nil nil)))
+(setq column-number-mode t)
+(add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
+(defun my-indent-setup ()
+  (c-set-offset 'arglist-intro '+))
+(add-hook 'c++-mode-common-hook 'my-indent-setup)
+(add-to-list 'load-path "~/.emacs.d")
+(autoload 'gtags-mode "gtags" "" t)

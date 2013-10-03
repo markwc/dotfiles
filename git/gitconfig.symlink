@@ -18,9 +18,8 @@
 	untracked = cyan
 
 [user]
-	name = Ferguson, Michael J @ CSG - CSW
-	email = michael.j.ferguson@l-3com.com
-	signingkey = 9F709BDA
+	name = Christiansen, Mark W @ CSG - CSW
+	email = mark.w.christiansen@l-3com.com
 
 [alias]
 	st = status
