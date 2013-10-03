@@ -1,0 +1,4 @@
+#!/bin/bash
+
+cd /data/nobackup2/tmp/ferg/stash-mirror
+ruby $HOME/.dotfiles/bin/keep-stash-up-to-date.rb
