@@ -7,7 +7,6 @@ alias ll    '\ls --color -alF'
 alias pu    'pushd'
 alias po    'popd'
 alias cl    'rm *.~*~'
-alias emacs 'emacs -r'
 alias gvim 'gvim -reverse'
 
 alias clean 'find . | grep "~" | xargs rm -rf'
