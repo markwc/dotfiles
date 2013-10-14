@@ -1,7 +1,7 @@
-Ferg's dotfiles
+markwc's dotfiles
 ===============
 
-These are Ferg's dotfiles. They personalize things such as aliases, bash
+These are markwc's dotfiles. They personalize things such as aliases, bash
 configurations, git prompts, etc. For example, `.bashrc`. or `.bash_profile`.
 
 Foobar
@@ -9,7 +9,7 @@ Foobar
 Install
 -------
 
-    git clone ssh://git@stash.csw.l-3com.com:7999/~mferguso/dotfiles.git ~.dotfiles
+    git clone ssh://git@stash.csw.l-3com.com:7999/~markwc/dotfiles.git ~.dotfiles
     cd .dotfiles
     ./bootstrap
 
