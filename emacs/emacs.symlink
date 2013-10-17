@@ -214,11 +214,14 @@ Note the weekly scope of the command's precision.")
 ;;====================================================================
 ;; org-mode stuff
 ;;====================================================================
+
 (require 'org-install)
 (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
 (define-key global-map "\C-cl" 'org-store-link)
 (define-key global-map "\C-ca" 'org-agenda)
 (setq org-log-done t)
+
+;;=== Track progress per section.
 
 (defun wicked/org-update-checkbox-count (&optional all)
   "Update the checkbox statistics in the current section.
@@ -280,6 +283,8 @@ do this for the whole buffer."
   (setq ad-return-value
 	(wicked/org-update-checkbox-count (ad-get-arg 1))))
 
+;;=== Auto publish to HTML.        
+
 (defun wicked/org-publish-files-maybe ()
   "Publish this file."
   (org-export-as-html-batch)
@@ -288,6 +293,8 @@ do this for the whole buffer."
  (lambda () 
   (add-hook (make-local-variable 'after-save-hook) ;; (2)
             'wicked/org-publish-files-maybe)))
+
+;;=== Only publish to HTML file if file contains #+PUBLISH keyword.
 
 (defun wicked/org-publish-files-maybe ()
   "Publish this file if it contains the #+PUBLISH: keyword"
@@ -305,6 +312,8 @@ do this for the whole buffer."
  (lambda ()
   (add-hook (make-local-variable 'after-save-hook)
             'wicked/org-publish-files-maybe)))
+
+;;=== Integrating Remember with org.            
            
 (global-set-key (kbd "C-c r") 'remember)    ;; (1)
 (add-hook 'remember-mode-hook 'org-remember-apply-template) ;; (2)
@@ -316,6 +325,7 @@ do this for the whole buffer."
 ;;====================================================================
 ;; word count stuff
 ;;====================================================================
+
 (defvar count-words-buffer
   nil
   "*Number of words in the buffer.")
