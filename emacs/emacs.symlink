@@ -4,7 +4,7 @@
 (setq load-path (cons "~/.emacs.d/site-lisp"  load-path))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Theme stuf
+;; Theme stuff
 ;; to reload : meta-x load-file .emacs
 ;; to reload one line/function, at end of line type C-xC-e
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -215,11 +215,20 @@ Note the weekly scope of the command's precision.")
 ;; org-mode stuff
 ;;====================================================================
 
+;;=== Initial configuration items.
+
 (require 'org-install)
 (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
 (define-key global-map "\C-cl" 'org-store-link)
 (define-key global-map "\C-ca" 'org-agenda)
 (setq org-log-done t)
+
+(setq org-directory "~/.org")
+(setq org-default-notes-file "~/.org/notes.org")
+(setq org-agenda-files '("~/.org/organizer.org"
+                         "~/.org/people.org"
+                         "~/.org/business.org"
+                         "~/.org/routines.org"))
 
 ;;=== Track progress per section.
 
@@ -313,15 +322,8 @@ do this for the whole buffer."
   (add-hook (make-local-variable 'after-save-hook)
             'wicked/org-publish-files-maybe)))
 
-;;=== Integrating Remember with org.            
-           
-(global-set-key (kbd "C-c r") 'remember)    ;; (1)
-(add-hook 'remember-mode-hook 'org-remember-apply-template) ;; (2)
-(setq org-remember-templates  
-      '((?n "* %U %?\n\n  %i\n  %a" "~/org/notes.org")))  ;; (3)
-(setq remember-annotation-functions '(org-remember-annotation)) ;; (4)
-(setq remember-handler-functions '(org-remember-handler)) ;; (5)
-
+;;=== agenda stuff
+          
 ;;====================================================================
 ;; word count stuff
 ;;====================================================================
