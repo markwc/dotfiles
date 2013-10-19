@@ -222,15 +222,6 @@ Note the weekly scope of the command's precision.")
 (autoload 'gtags-mode "gtags" "" t)
 
 ;;====================================================================
-;; org-mode stuff
-;;====================================================================
-
-; (require 'use-package)
-; (require 'bind-key)
-
-(load "~/.emacs.d/org-mode.emacs")
-
-;;====================================================================
 ;; word count stuff
 ;;====================================================================
 
@@ -265,3 +256,13 @@ Note the weekly scope of the command's precision.")
 	(forward-word 1)
         (setq count (1+ count)))
       count)))
+
+;;====================================================================
+;; Other customizations.
+;;====================================================================
+
+(require 'use-package)       ; https://github.com/jwiegley/use-package
+(require 'bind-key)          ; https://github.com/jwiegley/use-package
+
+(load "~/.emacs.d/org-mode.emacs")
+
