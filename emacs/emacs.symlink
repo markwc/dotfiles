@@ -24,16 +24,6 @@ If REPOSITORY is specified, use that."
 ;	(background-color  . "black")
 ;	(cursor-color      . "red")))
 
-(setq auto-mode-alist
-      (cons '("\\.txt\\'" . outline-mode) auto-mode-alist))
-
-(autoload 'markdown-mode "markdown-mode" "For editing Markdown files" t)
-(setq auto-mode-alist (cons '("\\.md\\'" . markdown-mode) auto-mode-alist))
-
-
-;; (autoload 'google-c-style "google-c-style.el"
-;;  "google mode" t)
-
 ;;====================================================================
 ;; Matlab Stuff
 ;;====================================================================
@@ -261,8 +251,13 @@ Note the weekly scope of the command's precision.")
 ;; Other customizations.
 ;;====================================================================
 
+(setq auto-mode-alist
+      (cons '("\\.txt\\'" . outline-mode) auto-mode-alist))
+
+(autoload 'markdown-mode "markdown-mode" "For editing Markdown files" t)
+(setq auto-mode-alist (cons '("\\.md\\'" . markdown-mode) auto-mode-alist))
+
 (require 'use-package)       ; https://github.com/jwiegley/use-package
 (require 'bind-key)          ; https://github.com/jwiegley/use-package
 
 (load "~/.emacs.d/org-mode.emacs")
-

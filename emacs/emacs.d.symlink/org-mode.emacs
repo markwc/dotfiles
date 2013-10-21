@@ -5,6 +5,8 @@
 ;;=== Initial configuration items.
 
 (require 'org-install)
+(require 'parse-time)
+
 (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
 (define-key global-map "\C-cl" 'org-store-link)
 (define-key global-map "\C-ca" 'org-agenda)
@@ -123,15 +125,15 @@ SCHEDULED: %^t
 %a
 %U"
          :clock-in :clock-resume)
-         ("c" "Contact" entry (file "~/.org/contacts.org")
-          "* %(org-contacts-template-name)
+        ("c" "Contact" entry (file "~/.org/contacts.org")
+         "* %(org-contacts-template-name)
 :PROPERTIES:
 :EMAIL: %(org-contacts-template-email)
 :END:")
-         ("r" "Notes" entry
-          (file+datetree "~/.org/organizer.org")
-          "* %?\n\n%i\n"
-          :clock-in :clock-resume)))
+        ("r" "Notes" entry
+         (file+datetree "~/.org/organizer.org")
+         "* %?\n\n%i\n"
+         :clock-in :clock-resume)))
 (global-set-key (kbd "C-M-r") 'org-capture)
 
 ;;=== Refiling
@@ -149,7 +151,7 @@ SCHEDULED: %^t
 (defun my/verify-refile-target ()
   "Exclude todo keywords with a DONE state from refile targets"
   (or (not (member (nth 2 (org-heading-components)) org-done-keywords)))
-      (save-excursion (org-goto-first-child)))
+  (save-excursion (org-goto-first-child)))
 (setq org-refile-target-verify-function 'my/verify-refile-target)
 
 ;;=== Track progress per section.
@@ -221,28 +223,28 @@ do this for the whole buffer."
   (org-export-as-html-batch)
   nil)
 (add-hook 'org-mode-hook  ;; (1)
- (lambda () 
-  (add-hook (make-local-variable 'after-save-hook) ;; (2)
-            'wicked/org-publish-files-maybe)))
+          (lambda () 
+            (add-hook (make-local-variable 'after-save-hook) ;; (2)
+                      'wicked/org-publish-files-maybe)))
 
 ;;=== Only publish to HTML file if file contains #+PUBLISH keyword.
 
 (defun wicked/org-publish-files-maybe ()
   "Publish this file if it contains the #+PUBLISH: keyword"
   (save-excursion
-   (save-restriction
-    (widen)
-    (goto-char (point-min))
-    (when (re-search-forward 
-           "^#?[ \t]*\\+\\(PUBLISH\\)"
-           nil t) 
-     (org-export-as-html-batch)   
-     nil))))
+    (save-restriction
+      (widen)
+      (goto-char (point-min))
+      (when (re-search-forward 
+             "^#?[ \t]*\\+\\(PUBLISH\\)"
+             nil t) 
+        (org-export-as-html-batch)   
+        nil))))
 
 (add-hook 'org-mode-hook
- (lambda ()
-  (add-hook (make-local-variable 'after-save-hook)
-            'wicked/org-publish-files-maybe)))
+          (lambda ()
+            (add-hook (make-local-variable 'after-save-hook)
+                      'wicked/org-publish-files-maybe)))
 
 ;;=== agenda stuff
 
@@ -257,20 +259,20 @@ do this for the whole buffer."
 (setq org-agenda-skip-deadline-if-done t)
 (setq org-agenda-time-grid
       '((daily today require-timed)
-       "----------------"
-       (800 1000 1200 1400 1600 1800)))
+        "----------------"
+        (800 1000 1200 1400 1600 1800)))
 (setq org-columns-default-format "%50ITEM %12SCHEDULED %TODO %3PRIORITY %Effort{:} %TAGS")
 
 ;;=== TODO keywords.
 
 (setq org-todo-keywords
- '((sequence
-    "TODO(t)"  ; next action
-    "TOBLOG(b)"  ; next action
-    "STARTED(s)"
-    "WAITING(w@/!)"
-    "POSTPONED(p)" "SOMEDAY(s@/!)" "|" "DONE(x!)" "CANCELLED(c@)")
-   (sequence "TODELEGATE(-)" "DELEGATED(d)" "COMPLETE(x)")))
+      '((sequence
+         "TODO(t)"  ; next action
+         "TOBLOG(b)"  ; next action
+         "STARTED(s)"
+         "WAITING(w@/!)"
+         "POSTPONED(p)" "SOMEDAY(s@/!)" "|" "DONE(x!)" "CANCELLED(c@)")
+        (sequence "TODELEGATE(-)" "DELEGATED(d)" "COMPLETE(x)")))
 
 ;;=== Projects
 
@@ -332,8 +334,8 @@ do this for the whole buffer."
       (progn
         (setq list (mapcar 'org-agenda-highlight-todo list))
         (if nosort
-          (setq ad-return-value
-            (subseq list 0 sacha/org-agenda-limit-items))
+            (setq ad-return-value
+                  (subseq list 0 sacha/org-agenda-limit-items))
           (when org-agenda-before-sorting-filter-function
             (setq list (delq nil (mapcar org-agenda-before-sorting-filter-function list))))
           (setq ad-return-value
@@ -379,87 +381,87 @@ do this for the whole buffer."
       (concat heading "\n"
               (org-agenda-finalize-entries list)))))
 
-  (defun sacha/org-agenda-projects-and-tasks (match)
-    "Show TODOs for all `org-agenda-files' headlines matching MATCH."
-    (interactive "MString: ")
-    (let ((todo-only nil))
-      (if org-agenda-overriding-arguments
-          (setq todo-only (car org-agenda-overriding-arguments)
-                match (nth 1 org-agenda-overriding-arguments)))
-      (let* ((org-tags-match-list-sublevels
-              org-tags-match-list-sublevels)
-             (completion-ignore-case t)
-             rtn rtnall files file pos matcher
-             buffer)
-        (when (and (stringp match) (not (string-match "\\S-" match)))
-          (setq match nil))
-        (setq matcher (org-make-tags-matcher match)
-              match (car matcher) matcher (cdr matcher))
-        (catch 'exit
-          (if org-agenda-sticky
-              (setq org-agenda-buffer-name
-                    (if (stringp match)
-                        (format "*Org Agenda(%s:%s)*"
-                                (or org-keys (or (and todo-only "M") "m")) match)
-                      (format "*Org Agenda(%s)*" (or (and todo-only "M") "m")))))
-          (org-agenda-prepare (concat "TAGS " match))
-          (org-compile-prefix-format 'tags)
-          (org-set-sorting-strategy 'tags)
-          (setq org-agenda-query-string match)
-          (setq org-agenda-redo-command
-                (list 'org-tags-view `(quote ,todo-only)
-                      (list 'if 'current-prefix-arg nil `(quote ,org-agenda-query-string))))
-          (setq files (org-agenda-files nil 'ifmode)
-                rtnall nil)
-          (while (setq file (pop files))
-            (catch 'nextfile
-              (org-check-agenda-file file)
-              (setq buffer (if (file-exists-p file)
-                               (org-get-agenda-file-buffer file)
-                             (error "No such file %s" file)))
-              (if (not buffer)
-                  ;; If file does not exist, error message to agenda
-                  (setq rtn (list
-                             (format "ORG-AGENDA-ERROR: No such org-file %s" file))
-                        rtnall (append rtnall rtn))
-                (with-current-buffer buffer
-                  (unless (derived-mode-p 'org-mode)
-                    (error "Agenda file %s is not in `org-mode'" file))
-                  (save-excursion
-                    (save-restriction
-                      (if org-agenda-restrict
-                          (narrow-to-region org-agenda-restrict-begin
-                                            org-agenda-restrict-end)
-                        (widen))
-                      (setq rtn (org-scan-tags 'sacha/org-agenda-project-agenda matcher todo-only))
-                      (setq rtnall (append rtnall rtn))))))))
-          (if org-agenda-overriding-header
-              (insert (org-add-props (copy-sequence org-agenda-overriding-header)
-                          nil 'face 'org-agenda-structure) "\n")
-            (insert "Headlines with TAGS match: ")
-            (add-text-properties (point-min) (1- (point))
-                                 (list 'face 'org-agenda-structure
-                                       'short-heading
-                                       (concat "Match: " match)))
-            (setq pos (point))
-            (insert match "\n")
-            (add-text-properties pos (1- (point)) (list 'face 'org-warning))
-            (setq pos (point))
-            (unless org-agenda-multi
-              (insert "Press `C-u r' to search again with new search string\n"))
-            (add-text-properties pos (1- (point)) (list 'face 'org-agenda-structure)))
-          (org-agenda-mark-header-line (point-min))
-          (when rtnall
-            (insert (mapconcat 'identity rtnall "\n") ""))
-          (goto-char (point-min))
-          (or org-agenda-multi (org-agenda-fit-window-to-buffer))
-          (add-text-properties (point-min) (point-max)
-                               `(org-agenda-type tags
-                                                 org-last-args (,todo-only ,match)
-                                                 org-redo-cmd ,org-agenda-redo-command
-                                                 org-series-cmd ,org-cmd))
-          (org-agenda-finalize)
-          (setq buffer-read-only t)))))
+(defun sacha/org-agenda-projects-and-tasks (match)
+  "Show TODOs for all `org-agenda-files' headlines matching MATCH."
+  (interactive "MString: ")
+  (let ((todo-only nil))
+    (if org-agenda-overriding-arguments
+        (setq todo-only (car org-agenda-overriding-arguments)
+              match (nth 1 org-agenda-overriding-arguments)))
+    (let* ((org-tags-match-list-sublevels
+            org-tags-match-list-sublevels)
+           (completion-ignore-case t)
+           rtn rtnall files file pos matcher
+           buffer)
+      (when (and (stringp match) (not (string-match "\\S-" match)))
+        (setq match nil))
+      (setq matcher (org-make-tags-matcher match)
+            match (car matcher) matcher (cdr matcher))
+      (catch 'exit
+        (if org-agenda-sticky
+            (setq org-agenda-buffer-name
+                  (if (stringp match)
+                      (format "*Org Agenda(%s:%s)*"
+                              (or org-keys (or (and todo-only "M") "m")) match)
+                    (format "*Org Agenda(%s)*" (or (and todo-only "M") "m")))))
+        (org-agenda-prepare (concat "TAGS " match))
+        (org-compile-prefix-format 'tags)
+        (org-set-sorting-strategy 'tags)
+        (setq org-agenda-query-string match)
+        (setq org-agenda-redo-command
+              (list 'org-tags-view `(quote ,todo-only)
+                    (list 'if 'current-prefix-arg nil `(quote ,org-agenda-query-string))))
+        (setq files (org-agenda-files nil 'ifmode)
+              rtnall nil)
+        (while (setq file (pop files))
+          (catch 'nextfile
+            (org-check-agenda-file file)
+            (setq buffer (if (file-exists-p file)
+                             (org-get-agenda-file-buffer file)
+                           (error "No such file %s" file)))
+            (if (not buffer)
+                ;; If file does not exist, error message to agenda
+                (setq rtn (list
+                           (format "ORG-AGENDA-ERROR: No such org-file %s" file))
+                      rtnall (append rtnall rtn))
+              (with-current-buffer buffer
+                (unless (derived-mode-p 'org-mode)
+                  (error "Agenda file %s is not in `org-mode'" file))
+                (save-excursion
+                  (save-restriction
+                    (if org-agenda-restrict
+                        (narrow-to-region org-agenda-restrict-begin
+                                          org-agenda-restrict-end)
+                      (widen))
+                    (setq rtn (org-scan-tags 'sacha/org-agenda-project-agenda matcher todo-only))
+                    (setq rtnall (append rtnall rtn))))))))
+        (if org-agenda-overriding-header
+            (insert (org-add-props (copy-sequence org-agenda-overriding-header)
+                        nil 'face 'org-agenda-structure) "\n")
+          (insert "Headlines with TAGS match: ")
+          (add-text-properties (point-min) (1- (point))
+                               (list 'face 'org-agenda-structure
+                                     'short-heading
+                                     (concat "Match: " match)))
+          (setq pos (point))
+          (insert match "\n")
+          (add-text-properties pos (1- (point)) (list 'face 'org-warning))
+          (setq pos (point))
+          (unless org-agenda-multi
+            (insert "Press `C-u r' to search again with new search string\n"))
+          (add-text-properties pos (1- (point)) (list 'face 'org-agenda-structure)))
+        (org-agenda-mark-header-line (point-min))
+        (when rtnall
+          (insert (mapconcat 'identity rtnall "\n") ""))
+        (goto-char (point-min))
+        (or org-agenda-multi (org-agenda-fit-window-to-buffer))
+        (add-text-properties (point-min) (point-max)
+                             `(org-agenda-type tags
+                                               org-last-args (,todo-only ,match)
+                                               org-redo-cmd ,org-agenda-redo-command
+                                               org-series-cmd ,org-cmd))
+        (org-agenda-finalize)
+        (setq buffer-read-only t)))))
 
 ;;=== Org agenda custom commands.
 
@@ -549,7 +551,7 @@ do this for the whole buffer."
          ((org-agenda-sorting-strategy '(priority-down tag-up category-keep effort-down))) )
         ("2" "List projects with tasks" sacha/org-agenda-projects-and-tasks
          "+PROJECT"
-           ((sacha/org-agenda-limit-items 3)))))
+         ((sacha/org-agenda-limit-items 3)))))
 
 ;;=== Sorting by date and priority.
 
@@ -623,115 +625,3 @@ do this for the whole buffer."
    (org-cmp-todo-state a b)
    (org-cmp-priority a b)
    (org-cmp-effort a b)))
-
-;;=== Weekly review.
-
-(defun sacha/quantified-get-hours (category time-summary)
-        "Return the number of hours based on the time summary."
-        (if (stringp category)
-           (if (assoc category time-summary) (/ (cdr (assoc category time-summary)) 3600.0) 0)
-          (apply '+ (mapcar (lambda (x) (sacha/quantified-get-hours x time-summary)) category))))
-(defun sacha/org-summarize-focus-areas ()
-  "Summarize previous and upcoming tasks as a list."
-  (interactive)
-  (let ((base-date (apply 'encode-time (org-read-date-analyze "-fri" nil '(0 0 0))))
-        business relationships life business-next relationships-next life-next string start end time-summary
-        biz-time)
-    (setq start (format-time-string "%Y-%m-%d" (days-to-time (- (time-to-number-of-days base-date) 6))))
-    (setq end (format-time-string "%Y-%m-%d" (days-to-time (1+ (time-to-number-of-days base-date)))))
-    (setq time-summary (quantified-summarize-time start end))
-    (setq biz-time (sacha/quantified-get-hours "Business" time-summary))
-    (save-window-excursion
-      (org-agenda nil "w")
-      (setq string (buffer-string))
-      (with-temp-buffer
-        (insert string)
-        (goto-char (point-min))
-        (while (re-search-forward "^  \\([^:]+\\): +\\(Sched[^:]+: +\\)?TODO \\(.*?\\)\\(?:[      ]+\\(:[[:alnum:]_@#%:]+:\\)\\)?[        ]*$" nil t)
-          (cond
-           ((string= (match-string 1) "routines") nil) ; skip routine tasks
-           ((string= (match-string 1) "business")
-            (add-to-list 'business-next (concat "  - [ ] " (match-string 3))))
-           ((string= (match-string 1) "people")
-            (add-to-list 'relationships-next (concat "  - [ ] " (match-string 3))))
-           (t (add-to-list 'life-next (concat "  - [ ] " (match-string 3))))))))
-    (save-window-excursion
-      (org-agenda nil "w")
-      (org-agenda-later -1)
-      (org-agenda-log-mode 16)
-      (setq string (buffer-string))
-      (with-temp-buffer
-        (insert string)
-        (goto-char (point-min))
-        (while (re-search-forward "^  \\([^:]+\\): +.*?State:.*?\\(?:TODO\\|DONE\\) \\(.*?\\)\\(?:[       ]+\\(:[[:alnum:]_@#%:]+:\\)\\)?[        ]*$" nil t)
-          (cond
-           ((string= (match-string 1) "routines") nil) ; skip routine tasks
-           ((string= (match-string 1) "business")
-            (add-to-list 'business (concat "  - [X] " (match-string 2))))
-           ((string= (match-string 1) "people")
-            (add-to-list 'relationships (concat "  - [X] " (match-string 2))))
-           (t (add-to-list 'life (concat "  - [X] " (match-string 2))))))))
-    (setq string
-          (concat
-           (format "- *Business* (%.1fh - %d%%)\n" biz-time (/ biz-time 1.68))
-           (mapconcat 'identity (sort business 'string<) "\n") "\n"
-           (mapconcat 'identity (sort business-next 'string<) "\n")
-           "\n"
-           (format "  - *Earn* (%.1fh - %d%% of Business)\n"
-                   (sacha/quantified-get-hours "Business - Earn" time-summary)
-                   (/ (sacha/quantified-get-hours "Business - Earn" time-summary) (* 0.01 biz-time)))
-           (format "  - *Build* (%.1fh - %d%% of Business)\n"
-                   (sacha/quantified-get-hours "Business - Build" time-summary)
-                   (/ (sacha/quantified-get-hours "Business - Build" time-summary) (* 0.01 biz-time)))
-           (format "    - *Quantified Awesome* (%.1fh)\n"
-                   (sacha/quantified-get-hours "Business - Build - Quantified Awesome" time-summary))
-           (format "    - *Drawing* (%.1fh)\n"
-                   (sacha/quantified-get-hours '("Business - Build - Drawing" "Business - Build - Book review")  time-summary))
-           (format "    - *Paperwork* (%.1fh)\n"
-                   (sacha/quantified-get-hours "Business - Build - Paperwork"  time-summary))
-           (format "  - *Connect* (%.1fh - %d%% of Business)\n"
-                   (sacha/quantified-get-hours "Business - Connect" time-summary)
-                   (/ (sacha/quantified-get-hours "Business - Connect" time-summary) (* 0.01 biz-time)))
-           (format "- *Relationships* (%.1fh - %d%%)\n"
-                   (sacha/quantified-get-hours '("Discretionary - Social" "Discretionary - Family") time-summary)
-                   (/ (sacha/quantified-get-hours '("Discretionary - Social" "Discretionary - Family") time-summary) 1.68))
-           (mapconcat 'identity (sort relationships 'string<) "\n") "\n"
-           (mapconcat 'identity (sort relationships-next 'string<) "\n")
-           "\n"
-           (format "- *Discretionary - Productive* (%.1fh - %d%%)\n"
-                   (sacha/quantified-get-hours "Discretionary - Productive" time-summary)
-                   (/ (sacha/quantified-get-hours "Discretionary - Productive" time-summary) 1.68))
-           (mapconcat 'identity (sort life 'string<) "\n") "\n"
-           (mapconcat 'identity (sort life-next 'string<) "\n") "\n"
-           (format "  - *Writing* (%.1fh)\n"
-                   (sacha/quantified-get-hours "Discretionary - Productive - Writing" time-summary))
-           (format "- *Discretionary - Play* (%.1fh - %d%%)\n"
-                   (sacha/quantified-get-hours "Discretionary - Play" time-summary)
-                   (/ (sacha/quantified-get-hours "Discretionary - Play" time-summary) 1.68))
-           (format "- *Personal routines* (%.1fh - %d%%)\n"
-                   (sacha/quantified-get-hours "Personal" time-summary)
-                   (/ (sacha/quantified-get-hours "Personal" time-summary) 1.68))
-           (format "- *Unpaid work* (%.1fh - %d%%)\n"
-                   (sacha/quantified-get-hours "Unpaid work" time-summary)
-                   (/ (sacha/quantified-get-hours "Unpaid work" time-summary) 1.68))
-           (format "- *Sleep* (%.1fh - %d%% - average of %.1f per day)\n"
-                   (sacha/quantified-get-hours "Sleep" time-summary)
-                   (/ (sacha/quantified-get-hours "Sleep" time-summary) 1.68)
-                   (/ (sacha/quantified-get-hours "Sleep" time-summary) 7)
-                   )))
-    (if (called-interactively-p 'any)
-        (insert string)
-      string)))
-
-(defun sacha/org-prepare-weekly-review ()
-  "Prepare weekly review template."
-  (interactive)
-  (let ((base-date (apply 'encode-time (org-read-date-analyze "-fri" nil '(0 0 0))))
-        (org-agenda-files '("~/.org/organizer.org" "~/.org/business.org" "~/.org/people.org")))
-    (insert
-       (concat
-        "*** Weekly review: Week ending " (format-time-string "%B %e, %Y" base-date) "  :weekly:\n"
-        "*Blog posts*\n\n"
-        "*Focus areas and time review*\n\n"
-        (sacha/org-summarize-focus-areas)
-        "\n"))))
