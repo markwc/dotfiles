@@ -6,6 +6,12 @@
 
 (require 'org-install)
 (require 'parse-time)
+(require 'pomodoro)
+
+(defun gtd ()
+   (interactive)
+   (find-file "~/.org/organizer.org")
+ )
 
 (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
 (define-key global-map "\C-cl" 'org-store-link)

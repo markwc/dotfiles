@@ -1,7 +1,15 @@
+;;====================================================================
+;; Mark Christiansen's .emacs file.
+;;====================================================================
+
 (custom-set-variables
  '(user-mail-address "mark.w.christiansen@l-3com.com"))
 (setq inhibit-startup-message t)
 (setq load-path (cons "~/.emacs.d/site-lisp"  load-path))
+
+;;====================================================================
+;; Useful for keeping packets up to date.
+;;====================================================================
 
 (defun sacha/package-install (package &optional repository)
   "Install PACKAGE if it has not yet been installed.
@@ -12,11 +20,12 @@ If REPOSITORY is specified, use that."
                               package-archives)))
     (package-install package))))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;====================================================================
 ;; Theme stuff
 ;; to reload : meta-x load-file .emacs
 ;; to reload one line/function, at end of line type C-xC-e
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;====================================================================
+
 ;(setq default-frame-alist
 ;      '((width             . 80)
 ;	(height            . 40)
@@ -25,69 +34,11 @@ If REPOSITORY is specified, use that."
 ;	(cursor-color      . "red")))
 
 ;;====================================================================
-;; Matlab Stuff
+;; ClearCase stuff
 ;;====================================================================
 
-(autoload 'matlab-mode "matlab" "Enter Matlab mode." t)
-(setq auto-mode-alist (cons '("\\.m\\'" . matlab-mode) auto-mode-alist))
-(autoload 'matlab-shell "matlab" "Interactive Matlab mode." t)
-(setq matlab-indent-function t)	; if you want function bodies indented
-(setq matlab-verify-on-save-flag nil)	; turn off auto-verify on save
-(defun my-matlab-mode-hook ()
-  (setq fill-column 76))		; where auto-fill should wrap
-(add-hook 'matlab-mode-hook 'my-matlab-mode-hook)
-(defun my-matlab-shell-mode-hook ()
-  '())
-(add-hook 'matlab-shell-mode-hook 'my-matlab-shell-mode-hook)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; ClearCase stuff
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;(load "clearcase")
 ;(autoload 'visual-basic-mode "visual-basic-mode" "Visual Basic mode." t)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Settings based on lisp/site-init.el for Emacs 20.3
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Ensure 'emacs-major-version defined (first introduced in version 19.23):
-(if (not (boundp 'emacs-major-version)) (setq emacs-major-version 19))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; C-mode variables and bindings:
-
-					;(set-variable 'c-tab-always-indent t)		;; indent regardless
-(set-variable 'c-tab-always-indent t)	;; indent from LHS only
-
-;; Note: c-mode-common-hook occurs during both C and C++ autoloads,
-;; c-mode-hook occurs during C autoloads only.  c-mode-base-map affects both
-;; C and C++ bindings, c-mode-map affects C bindings only.
-
-(add-hook 'c-mode-common-hook 'c-mode-site)
-;; (add-hook 'c-mode-common-hook 'google-set-c-style)
-(defun c-mode-site ()
-  "Perform site-specific c-mode customization"
-  ;; substatement-open: indentation of { following a control statement
-  ;; (see lisp/progmodes/cc-styles.el for more options)
-  (c-add-style  "gnu2"  '("gnu" (c-offsets-alist . (
-						    (substatement-open . 0)
-                                                    (arglist-intro . +)
-                                                    (arglist-cont-nonempty . +)
-						    (arglist-cont . 0)
-						    (arglist-close . 0)
-						    )))
-		t)
-
-  ;; Uncomment the following for case sensitive searches:
-  ;;(define-key c-mode-base-map "\M-r" 'query-replace-case-sensitive)
-  ;;(define-key c-mode-base-map "\C-s" 'isearch-forward-case-sensitive)
-  ;;(define-key c-mode-base-map "\C-r" 'isearch-backward-case-sensitive)
-
-  ;; Uncomment the following for NON-case sensitive searches:
-  (define-key c-mode-base-map "\M-r" 'query-replace)
-  (define-key c-mode-base-map "\C-s" 'isearch-forward)
-  (define-key c-mode-base-map "\C-r" 'isearch-backward)
-  )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Meta commands:
@@ -138,10 +89,6 @@ If REPOSITORY is specified, use that."
       (add-hook 'c-mode-common-hook
 		(function (lambda () (font-lock-mode 1))))))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; EOF.
-;; I hate tabs!
-(setq-default indent-tabs-mode nil)
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -156,43 +103,10 @@ If REPOSITORY is specified, use that."
  ;; If there is more than one, they won't work right.
  )
 
-;; ==================== 
-;; insert date and time 
+;;====================================================================
+;; Wack the whitespace
+;;====================================================================
 
-(defvar current-date-time-format "%D %a %X")
-(defvar current-date-format "%a %d %b %Y" 
-  "Format of date to insert with `insert-current-date' func 
-See help of `format-time-string' for possible replacements") 
-;;(defvar current-time-format "%a %H:%M:%S" 
-(defvar current-time-format "%H:%M:%S"
-  "Format of date to insert with `insert-current-time' func. 
-Note the weekly scope of the command's precision.") 
-(defun insert-current-date () 
-  "insert the current date and time into current buffer."
-  (interactive) 
-  (insert (format-time-string current-date-time-format (current-time)))
-  ) 
-(defun insert-current-time () 
-  "insert the current time (1-week scope) into the current buffer." 
-  (interactive) 
-  (insert (format-time-string current-time-format (current-time))) 
-  ) 
-(defun insert-debug-line ()
-  "Insert debug line at cursor point."
-  (interactive)
-  (insert "printf(\"<%s>\\n\", __FUNCTION__);"))
-
-(global-set-key "\C-c\C-d" 'insert-current-date) 
-(global-set-key "\C-c\C-t" 'insert-current-time)
-(global-set-key "\C-c\C-f" 'insert-debug-line)
-(global-font-lock-mode 1)
-
-;; ==================== 
-;; local limited version control
-; (setq version-control nil)
-; (setq-default delete-old-versions t)
-
-(show-paren-mode t)
 (defun whack-whitespace (arg)
   "Delete all white space from point to the next word.  With prefix ARG
     delete across newlines as well.  The only danger in this is that you
@@ -204,12 +118,6 @@ Note the weekly scope of the command's precision.")
     (re-search-forward regexp nil t)
     (replace-match "" nil nil)))
 (setq column-number-mode t)
-(add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
-(defun my-indent-setup ()
-  (c-set-offset 'arglist-intro '+))
-(add-hook 'c++-mode-common-hook 'my-indent-setup)
-(add-to-list 'load-path "~/.emacs.d")
-(autoload 'gtags-mode "gtags" "" t)
 
 ;;====================================================================
 ;; word count stuff
@@ -248,8 +156,38 @@ Note the weekly scope of the command's precision.")
       count)))
 
 ;;====================================================================
+;; insert date and time 
+;;====================================================================
+
+(defvar current-date-time-format "%D %a %X")
+(defvar current-date-format "%a %d %b %Y" 
+  "Format of date to insert with `insert-current-date' func 
+See help of `format-time-string' for possible replacements") 
+;;(defvar current-time-format "%a %H:%M:%S" 
+(defvar current-time-format "%H:%M:%S"
+  "Format of date to insert with `insert-current-time' func. 
+Note the weekly scope of the command's precision.") 
+(defun insert-current-date () 
+  "insert the current date and time into current buffer."
+  (interactive) 
+  (insert (format-time-string current-date-time-format (current-time)))
+  ) 
+(defun insert-current-time () 
+  "insert the current time (1-week scope) into the current buffer." 
+o  (interactive) 
+  (insert (format-time-string current-time-format (current-time))) 
+  ) 
+(global-set-key "\C-c\C-d" 'insert-current-date) 
+(global-set-key "\C-c\C-t" 'insert-current-time)
+(global-set-key "\C-c\C-f" 'insert-debug-line)
+
+;;====================================================================
 ;; Other customizations.
 ;;====================================================================
+
+(global-font-lock-mode 1)
+
+(show-paren-mode t)
 
 (setq auto-mode-alist
       (cons '("\\.txt\\'" . outline-mode) auto-mode-alist))
@@ -260,4 +198,11 @@ Note the weekly scope of the command's precision.")
 (require 'use-package)       ; https://github.com/jwiegley/use-package
 (require 'bind-key)          ; https://github.com/jwiegley/use-package
 
-(load "~/.emacs.d/org-mode.emacs")
+(load "~/.dotfiles/emacs/coding-stuff.emacs")
+(load "~/.dotfiles/emacs/matlab-mode.emacs")
+(load "~/.dotfiles/emacs/org-mode.emacs")
+
+(defun insert-debug-line ()
+  "Insert debug line at cursor point."
+  (interactive)
+  (insert "printf(\"<%s>\\n\", __FUNCTION__);"))
