@@ -195,6 +195,7 @@ o  (interactive)
 (autoload 'markdown-mode "markdown-mode" "For editing Markdown files" t)
 (setq auto-mode-alist (cons '("\\.md\\'" . markdown-mode) auto-mode-alist))
 
+(require 'pomodoro)
 (require 'use-package)       ; https://github.com/jwiegley/use-package
 (require 'bind-key)          ; https://github.com/jwiegley/use-package
 
