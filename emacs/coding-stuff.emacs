@@ -1,27 +1,32 @@
 ;;====================================================================
-;; gtags-mode
+;; coding stuff
 ;;====================================================================
 
+;;=== I hate tabs!
+(setq-default indent-tabs-mode nil)
+
+;;=== Treat *.h as C++ files.
 (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
+
+;;=== Auto complete.
+
+(require 'company)
+
+;;=== Indent argist by indent instead of lining up with open paren.
+
 (defun my-indent-setup ()
   (c-set-offset 'arglist-intro '+))
 (add-hook 'c++-mode-common-hook 'my-indent-setup)
-(add-to-list 'load-path "~/.emacs.d")
-(add-to-list 'load-path "~/.emacs.d/site-lisp")
-(autoload 'gtags-mode "gtags" "" t)
-
-;;=== I hate tabs!
-
-(setq-default indent-tabs-mode nil)
+(add-hook 'after-init-hook 'global-company-mode)
+;;(add-hook 'c++-mode-common-hook (lambda () (company-mode)))
 
 ;;=== C-mode variables and bindings:
 
-(set-variable 'c-tab-always-indent t) ;; indent from LHS only
-
-;; Note: c-mode-common-hook occurs during both C and C++ autoloads,
-;; c-mode-hook occurs during C autoloads only.  c-mode-base-map affects both
-;; C and C++ bindings, c-mode-map affects C bindings only.
-
+(set-variable 'c-tab-always-indent t)
+;; indent from LHS only Note: c-mode-common-hook occurs during both C
+;; and C++ autoloads, c-mode-hook occurs during C autoloads only.
+;; c-mode-base-map affects both C and C++ bindings, c-mode-map affects
+;; C bindings only.
 (add-hook 'c-mode-common-hook 'c-mode-site)
 ;; (add-hook 'c-mode-common-hook 'google-set-c-style)
 (defun c-mode-site ()
@@ -35,42 +40,14 @@
 						    (arglist-cont . 0)
 						    (arglist-close . 0)
 						    )))
-		t)
-
-  ;; Uncomment the following for case sensitive searches:
+                t)
+  ;;=== Uncomment the following for case sensitive searches:
   ;;(define-key c-mode-base-map "\M-r" 'query-replace-case-sensitive)
   ;;(define-key c-mode-base-map "\C-s" 'isearch-forward-case-sensitive)
   ;;(define-key c-mode-base-map "\C-r" 'isearch-backward-case-sensitive)
-
-  ;; Uncomment the following for NON-case sensitive searches:
+  ;;=== Uncomment the following for NON-case sensitive searches:
   (define-key c-mode-base-map "\M-r" 'query-replace)
   (define-key c-mode-base-map "\C-s" 'isearch-forward)
   (define-key c-mode-base-map "\C-r" 'isearch-backward)
   )
 
-;;=== gtags
-
-(eval-after-load "gtags"
-  '(progn
-     (define-key gtags-mode-map (kbd "M-,") 'gtags-find-rtag)))
-(defun ff/turn-on-gtags ()
-  "Turn `gtags-mode' on if a global tags file has been generated.
-
-This function asynchronously runs 'global -u' to update global
-tags. When the command successfully returns, `gtags-mode' is
-turned on."
-  (interactive)
-  (let ((process (start-process "global -u"
-                                "*global output*"
-                                "global" "-u"))
-        (buffer  (current-buffer)))
-    (set-process-sentinel
-     process
-     `(lambda (process event)
-        (when (and (eq (process-status process) 'exit)
-                   (eq (process-exit-status process) 0))
-          (with-current-buffer ,buffer
-            (message "Activating gtags-mode")
-            (gtags-mode 1)))))))
-
-(add-hook 'c-mode-common-hook 'ff/turn-on-gtags)

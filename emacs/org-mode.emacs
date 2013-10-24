@@ -27,8 +27,8 @@
               (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)" "PHONE" "MEETING"))))
 
 (setq org-todo-keyword-faces
-      (quote (("TODO" :foreground "red" :weight bold)
-              ("NEXT" :foreground "blue" :weight bold)
+      (quote (("TODO" :foreground "pink" :weight bold)
+              ("NEXT" :foreground "red" :weight bold)
               ("DONE" :foreground "forest green" :weight bold)
               ("WAITING" :foreground "orange" :weight bold)
               ("HOLD" :foreground "magenta" :weight bold)
@@ -50,7 +50,7 @@
               ("DONE" ("WAITING") ("CANCELLED") ("HOLD")))))
 
 (setq org-directory "~/.org")
-(setq org-default-notes-file "~/.org/organize.org")
+(setq org-default-notes-file "~/.org/organizer.org")
 
 ;;=== Refile stuff.
 

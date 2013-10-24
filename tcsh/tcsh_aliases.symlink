@@ -1,13 +1,14 @@
 ### Personal stuff
 
-alias sv    'source activate'
-alias ls    '\ls --color -F'
-alias la    '\ls --color -aF'
-alias ll    '\ls --color -alF'
-alias pu    'pushd'
-alias po    'popd'
-alias cl    'rm *.~*~'
+alias sv   'source activate'
+alias ls   '\ls --color -F'
+alias la   '\ls --color -aF'
+alias ll   '\ls --color -alF'
+alias pu   'pushd'
+alias po   'popd'
+alias cl   'rm *.~*~'
 alias gvim 'gvim -reverse'
+alias org  'emacs --name Organizer ~/.org/organizer.org &'
 
 alias clean 'find . | grep "~" | xargs rm -rf'
 
