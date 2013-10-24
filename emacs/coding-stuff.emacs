@@ -12,6 +12,35 @@
 
 (require 'company)
 
+;;=== Tags.
+
+(autoload 'gtags-mode "gtags" "" t)
+
+(eval-after-load "gtags"
+  '(progn
+     (define-key gtags-mode-map (kbd "M-,") 'gtags-find-rtag)))
+(defun ff/turn-on-gtags ()
+  "Turn `gtags-mode' on if a global tags file has been generated.
+
+This function asynchronously runs 'global -u' to update global
+tags. When the command successfully returns, `gtags-mode' is
+turned on."
+  (interactive)
+  (let ((process (start-process "global -u"
+                                "*global output*"
+                                "global" "-u"))
+        (buffer  (current-buffer)))
+    (set-process-sentinel
+     process
+     `(lambda (process event)
+        (when (and (eq (process-status process) 'exit)
+                   (eq (process-exit-status process) 0))
+          (with-current-buffer ,buffer
+            (message "Activating gtags-mode")
+            (gtags-mode 1)))))))
+
+(add-hook 'c-mode-common-hook 'ff/turn-on-gtags)
+
 ;;=== Indent argist by indent instead of lining up with open paren.
 
 (defun my-indent-setup ()
