@@ -80,3 +80,9 @@ turned on."
   (define-key c-mode-base-map "\C-r" 'isearch-backward)
   )
 
+;;=== Debug stuff
+
+(defun insert-debug-line ()
+  "Insert debug line at cursor point."
+  (interactive)
+  (insert "printf(\"<%s>\\n\", __FUNCTION__);"))

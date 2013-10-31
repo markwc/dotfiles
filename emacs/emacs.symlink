@@ -205,8 +205,7 @@ o  (interactive)
 (load "~/.dotfiles/emacs/coding-stuff.emacs")
 (load "~/.dotfiles/emacs/matlab-mode.emacs")
 (load "~/.dotfiles/emacs/org-mode.emacs")
+(load "~/.dotfiles/emacs/latex-mode.emacs")
 
-(defun insert-debug-line ()
-  "Insert debug line at cursor point."
-  (interactive)
-  (insert "printf(\"<%s>\\n\", __FUNCTION__);"))
+(require 'sql)
+
