@@ -20,6 +20,10 @@
 
 ;;=== TODO stuff
 
+(setq org-log-done 'time)
+(setq org-log-done 'note)
+
+
 (setq org-agenda-start-on-weekday 6)
 
 (setq org-todo-keywords
