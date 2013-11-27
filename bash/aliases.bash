@@ -1,8 +1,12 @@
 alias sv='source activate'
-alias lc='\ls --color'
-alias ls='lc -F'
-alias la='lc -aF'
-alias ll='lc -alF'
+alias ls='\ls -F'
+if [ $OSTYPE == "linux" ]; then
+    alias ls='\ls --color'
+else
+    alias ls='\ls -F'
+fi
+alias la='ls -a'
+alias ll='ls -al'
 alias pu='pushd'
 alias po='popd'
 alias cl='rm *.~*~'

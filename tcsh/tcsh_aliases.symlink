@@ -1,9 +1,9 @@
 ### Personal stuff
 
 alias sv   'source activate'
-alias ls   '\ls --color -F'
-alias la   '\ls --color -aF'
-alias ll   '\ls --color -alF'
+alias ls   'ls -F'
+alias la   'ls -aF'
+alias ll   'ls -alF'
 alias pu   'pushd'
 alias po   'popd'
 alias cl   'rm *.~*~'

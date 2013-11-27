@@ -176,7 +176,7 @@ if ($OS_DER[1] == BSD) then
     alias vdt 'ls -lagt \!* | more'
 else if ($OS_DER[1] == SYSV) then
     # SystemV derivatives:
-    alias ls '/bin/ls -C'
+    alias ls '/bin/ls -F'
     # Alias SYS5 mail command to something usable:
     if (-x /usr/bin/mailx) alias mail '/usr/bin/mailx'
     if (-x /usr/ucb/mail)  alias mail '/usr/ucb/mail'
@@ -189,6 +189,7 @@ else if ($OS_DER[1] == SYSV) then
 	alias df bdf
 	unalias bps	# No equivalent
     else if ($OS_SYS == Linux) then
+        alias ls '/bin/ls --color'
 	alias bdf '/usr/local/bin/df'
 	alias bdfx '/usr/local/bin/df -xmvfs'
 	alias bps '/bin/ps'	# Supports both BSD/SysV syntax

@@ -25,4 +25,7 @@ do
 done
 
 # get dircolors working
-eval `dircolors -b $HOME/.dir_colors`
+if [ $OSTYPE == "linux" ]; then
+   eval `dircolors -b $HOME/.dir_colors`
+fi
+
