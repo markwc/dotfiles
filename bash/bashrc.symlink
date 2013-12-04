@@ -11,6 +11,9 @@ shopt -s histappend
 HISTSIZE=1000000
 HISTFILESIZE=1000000
 
+# I want the core dump files... :)
+ulimit -c unlimited
+
 # Add our own paths
 PATH="$HOME/.dotfiles/bin:$HOME/bin:$PATH"
 CDPATH="$HOME:$HOME/src"

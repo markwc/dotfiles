@@ -42,9 +42,9 @@ if ($?prompt) then
     set prompt = "[$HOSTNAME] "
 #
 #    # Uncomment following to add current working ClearCase view to prompt:
-#    if (-e /usr/local/ccase/aliases/prompt) then
-#	source /usr/local/ccase/aliases/prompt
-#    endif
+    if (-e /usr/local/ccase/aliases/prompt) then
+        source /usr/local/ccase/aliases/prompt
+    endif
 else
     # Don't define prompt for non-interactive shells, otherwise "cron" jobs,
     # "rsh", and "rcp" will fail due to "stty" and "tty" being executed!
@@ -200,8 +200,7 @@ endif
 #################################
 # Source user's personal aliases (if any):
 
-if (-e ~/.tcsh_alias) source ~/.tcsh_alias
-if (-e ~/.tcsh_aliases) source ~/.tcsh_aliases
+if (-e ~/.dotfiles/tcsh/aliases.tcsh) source ~/.dotfiles/tcsh/aliases.tcsh
 
 #################################
 # Source .login if entering a subshell via newgrp, cleartool, etc.:
