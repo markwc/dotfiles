@@ -5,7 +5,10 @@
 (custom-set-variables
  '(user-mail-address "mark.w.christiansen@l-3com.com"))
 (setq inhibit-startup-message t)
-(setq load-path (cons "~/.emacs.d/site-lisp"  load-path))
+(add-to-list 'load-path "~/.emacs.d/site-lisp")
+(add-to-list 'load-path "~/.emacs.d/site-lisp/org-8.2.1/lisp")
+(add-to-list 'load-path "~/.dotfiles/emacs/lisp/company-mode")
+(add-to-list 'load-path "~/.dotfiles/emacs/lisp")
 
 ;;====================================================================
 ;; Useful for keeping packets up to date.
@@ -195,14 +198,14 @@ o  (interactive)
 (autoload 'markdown-mode "markdown-mode" "For editing Markdown files" t)
 (setq auto-mode-alist (cons '("\\.md\\'" . markdown-mode) auto-mode-alist))
 
+(require 'pomodoro)
 (require 'use-package)       ; https://github.com/jwiegley/use-package
 (require 'bind-key)          ; https://github.com/jwiegley/use-package
 
 (load "~/.dotfiles/emacs/coding-stuff.emacs")
 (load "~/.dotfiles/emacs/matlab-mode.emacs")
 (load "~/.dotfiles/emacs/org-mode.emacs")
+(load "~/.dotfiles/emacs/latex-mode.emacs")
 
-(defun insert-debug-line ()
-  "Insert debug line at cursor point."
-  (interactive)
-  (insert "printf(\"<%s>\\n\", __FUNCTION__);"))
+(require 'sql)
+
