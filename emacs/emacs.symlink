@@ -68,13 +68,6 @@ If REPOSITORY is specified, use that."
     (package-install package))))
 
 ;;====================================================================
-;; ClearCase stuff
-;;====================================================================
-
-;(load "clearcase")
-;(autoload 'visual-basic-mode "visual-basic-mode" "Visual Basic mode." t)
-
-;;====================================================================
 ;; Version/backup stuff.
 ;;====================================================================
 
