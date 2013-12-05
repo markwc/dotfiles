@@ -2,15 +2,14 @@
 ;; coding stuff
 ;;====================================================================
 
-;;=== I hate tabs!
-(setq-default indent-tabs-mode nil)
-
 ;;=== Treat *.h as C++ files.
 (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
 
 ;;=== Auto complete.
 
 (require 'company)
+(require 'git)
+(require 'git-blame)
 
 ;;=== Tags.
 
@@ -47,10 +46,6 @@ turned on."
 
 (add-hook 'c-mode-common-hook 'ff/turn-on-gtags)
 
-;;(when window-system
-;;  (speedbar t))
-
-
 ;;=== Indent argist by indent instead of lining up with open paren.
 
 (defun my-indent-setup ()
@@ -85,9 +80,9 @@ turned on."
   ;;(define-key c-mode-base-map "\C-s" 'isearch-forward-case-sensitive)
   ;;(define-key c-mode-base-map "\C-r" 'isearch-backward-case-sensitive)
   ;;=== Uncomment the following for NON-case sensitive searches:
+  (define-key c-mode-base-map (kbd "<f5>") 'gdb)
+  (define-key c-mode-base-map (kbd "<f7>") 'compile)
   (define-key c-mode-base-map "\M-r" 'query-replace)
-  (define-key c-mode-base-map "\C-s" 'isearch-forward)
-  (define-key c-mode-base-map "\C-r" 'isearch-backward)
   )
 
 ;;=== Debug stuff
@@ -95,4 +90,5 @@ turned on."
 (defun insert-debug-line ()
   "Insert debug line at cursor point."
   (interactive)
-  (insert "printf(\"<%s>\\n\", __FUNCTION__);"))
+  (insert "cerr << __FUNCTION__ << endl;")
+  )
