@@ -8,10 +8,24 @@
 ;;=== Auto complete.
 
 (require 'company)
+
+;;====================================================================
+;; Git stuff.
+;;====================================================================
+
 (require 'git)
 (require 'git-blame)
 
-;;=== Tags.
+;;====================================================================
+;; ClearCase stuff.
+;;====================================================================
+
+(load "clearcase")
+;; (autoload 'visual-basic-mode "visual-basic-mode" "Visual Basic mode." t)
+
+;;====================================================================
+;; Tags.
+;;====================================================================
 
 (autoload 'gtags-mode "gtags" "" t)
 (eval-after-load "gtags"
@@ -46,7 +60,9 @@ turned on."
 
 (add-hook 'c-mode-common-hook 'ff/turn-on-gtags)
 
-;;=== Indent argist by indent instead of lining up with open paren.
+;;====================================================================
+;; Indent argist by indent instead of lining up with open paren.
+;;====================================================================
 
 (defun my-indent-setup ()
   (c-set-offset 'arglist-intro '+))
@@ -54,7 +70,9 @@ turned on."
 (add-hook 'after-init-hook 'global-company-mode)
 ;;(add-hook 'c++-mode-common-hook (lambda () (company-mode)))
 
-;;=== C-mode variables and bindings:
+;;====================================================================
+;; C-mode variables and bindings:
+;;====================================================================
 
 (set-variable 'c-tab-always-indent t)
 ;; indent from LHS only Note: c-mode-common-hook occurs during both C
@@ -85,7 +103,9 @@ turned on."
   (define-key c-mode-base-map "\M-r" 'query-replace)
   )
 
-;;=== Debug stuff
+;;====================================================================
+;; Debug stuff
+;;====================================================================
 
 (defun insert-debug-line ()
   "Insert debug line at cursor point."
