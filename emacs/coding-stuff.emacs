@@ -2,10 +2,11 @@
 ;; coding stuff
 ;;====================================================================
 
-;;=== Treat *.h as C++ files.
 (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
 
-;;=== Auto complete.
+;;====================================================================
+;; Auto complete.
+;;====================================================================
 
 (require 'company)
 
@@ -21,7 +22,6 @@
 ;;====================================================================
 
 (load "clearcase")
-;; (autoload 'visual-basic-mode "visual-basic-mode" "Visual Basic mode." t)
 
 ;;====================================================================
 ;; Tags.
@@ -85,14 +85,13 @@ turned on."
   "Perform site-specific c-mode customization"
   ;; substatement-open: indentation of { following a control statement
   ;; (see lisp/progmodes/cc-styles.el for more options)
-  (c-add-style  "gnu2"  '("gnu" (c-offsets-alist . (
-						    (substatement-open . 0)
-                                                    (arglist-intro . +)
-                                                    (arglist-cont-nonempty . +)
-						    (arglist-cont . 0)
-						    (arglist-close . 0)
-						    )))
-                t)
+  (c-add-style  "gnu2" '("gnu" (c-offsets-alist .
+                                                ((substatement-open . 0)
+                                                 (arglist-intro . +)
+                                                 (arglist-cont-nonempty . +)
+                                                 (arglist-cont . 0)
+                                                 (arglist-close . 0)
+                                                 ))) t)
   ;;=== Uncomment the following for case sensitive searches:
   ;;(define-key c-mode-base-map "\M-r" 'query-replace-case-sensitive)
   ;;(define-key c-mode-base-map "\C-s" 'isearch-forward-case-sensitive)
@@ -100,8 +99,7 @@ turned on."
   ;;=== Uncomment the following for NON-case sensitive searches:
   (define-key c-mode-base-map (kbd "<f5>") 'gdb)
   (define-key c-mode-base-map (kbd "<f7>") 'compile)
-  (define-key c-mode-base-map "\M-r" 'query-replace)
-  )
+  (define-key c-mode-base-map "\M-r" 'query-replace))
 
 ;;====================================================================
 ;; Debug stuff
@@ -110,5 +108,4 @@ turned on."
 (defun insert-debug-line ()
   "Insert debug line at cursor point."
   (interactive)
-  (insert "cerr << __FUNCTION__ << endl;")
-  )
+  (insert "cerr << __FUNCTION__ << endl;"))

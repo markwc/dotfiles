@@ -11,18 +11,21 @@
 
 (add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\)$" . org-mode))
 
-;;=== Standard key bindings
+;;====================================================================
+;; Standard key bindings
+;;====================================================================
 
 (global-set-key (kbd "C-c l") 'org-store-link)
 (global-set-key (kbd "C-c a") 'org-agenda)
 (global-set-key (kbd "C-c b") 'org-iswitchb)
 (global-set-key (kbd "C-c c") 'org-capture)
 
-;;=== TODO stuff
+;;====================================================================
+;; TODO stuff
+;;====================================================================
 
 (setq org-log-done 'time)
 (setq org-log-done 'note)
-
 
 (setq org-agenda-start-on-weekday 6)
 
@@ -56,7 +59,9 @@
 (setq org-directory "~/.org")
 (setq org-default-notes-file "~/.org/organizer.org")
 
-;;=== Refile stuff.
+;;====================================================================
+;; Refile stuff.
+;;====================================================================
 
 (setq org-refile-targets '((nil :maxlevel . 2)
                                 ; all top-level headlines in the
@@ -64,9 +69,13 @@
                                 ; refile target
                            (org-agenda-files :maxlevel . 2)))
 
-;;=== Capture stuff.
+;;====================================================================
+;; Capture stuff.
+;;====================================================================
 
-;;=== Track progress per section.
+;;====================================================================
+;; Track progress per section.
+;;====================================================================
 
 (defun wicked/org-update-checkbox-count (&optional all)
   "Update the checkbox statistics in the current section.
@@ -128,7 +137,9 @@ do this for the whole buffer."
   (setq ad-return-value
 	(wicked/org-update-checkbox-count (ad-get-arg 1))))
 
-;;=== Auto publish to HTML.        
+;;====================================================================
+;; Auto publish to HTML.        
+;;====================================================================
 
 (defun wicked/org-publish-files-maybe ()
   "Publish this file."
@@ -139,7 +150,9 @@ do this for the whole buffer."
             (add-hook (make-local-variable 'after-save-hook) ;; (2)
                       'wicked/org-publish-files-maybe)))
 
-;;=== Only publish to HTML file if file contains #+PUBLISH keyword.
+;;====================================================================
+;; Only publish to HTML file if file contains #+PUBLISH keyword.
+;;====================================================================
 
 (defun wicked/org-publish-files-maybe ()
   "Publish this file if it contains the #+PUBLISH: keyword"

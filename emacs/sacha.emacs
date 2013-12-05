@@ -25,7 +25,7 @@ If REPOSITORY is specified, use that."
     (let ((package-archives (if repository
                                 (list (assoc repository package-archives))
                               package-archives)))
-    (package-install package))))
+      (package-install package))))
 (defun sacha/org-share-emacs ()
   "Share my Emacs configuration."
   (interactive)
@@ -48,9 +48,9 @@ If REPOSITORY is specified, use that."
   :config (winner-mode 1))
 (use-package multiple-cursors
   :bind 
-   (("C->" . mc/mark-next-like-this)
-    ("C-<" . mc/mark-previous-like-this)
-    ("C-*" . mc/mark-all-like-this)))
+  (("C->" . mc/mark-next-like-this)
+   ("C-<" . mc/mark-previous-like-this)
+   ("C-*" . mc/mark-all-like-this)))
 (use-package all)
 (use-package edit-list
   :commands edit-list)
@@ -231,9 +231,9 @@ If REPOSITORY is specified, use that."
 (use-package org-agenda
   :init (bind-key "i" 'org-agenda-clock-in org-agenda-mode-map))
 (setq org-goto-interface 'outline
-        org-goto-max-level 10)
-  (require 'imenu)
-  (global-set-key (kbd "M-o") 'imenu)
+      org-goto-max-level 10)
+(require 'imenu)
+(global-set-key (kbd "M-o") 'imenu)
 (global-set-key (kbd "C-c j") 'org-clock-goto)
 (global-set-key (kbd "C-c i") (lambda () (interactive) (find-file "~/Dropbox/public/sharing/index.org")))
 (setq org-cycle-include-plain-lists 'integrate)
@@ -308,15 +308,15 @@ SCHEDULED: %^t
 %a
 %U"
          :clock-in :clock-resume)
-         ("c" "Contact" entry (file "~/personal/contacts.org")
-          "* %(org-contacts-template-name)
+        ("c" "Contact" entry (file "~/personal/contacts.org")
+         "* %(org-contacts-template-name)
 :PROPERTIES:
 :EMAIL: %(org-contacts-template-email)
 :END:")
-         ("r" "Notes" entry
-          (file+datetree "~/personal/organizer.org")
-          "* %?\n\n%i\n"
-          :clock-in :clock-resume)))
+        ("r" "Notes" entry
+         (file+datetree "~/personal/organizer.org")
+         "* %?\n\n%i\n"
+         :clock-in :clock-resume)))
 (global-set-key (kbd "C-M-r") 'org-capture)
 (setq org-reverse-note-order t)
 (setq org-refile-use-outline-path nil)
@@ -331,7 +331,7 @@ SCHEDULED: %^t
 (defun my/verify-refile-target ()
   "Exclude todo keywords with a DONE state from refile targets"
   (or (not (member (nth 2 (org-heading-components)) org-done-keywords)))
-      (save-excursion (org-goto-first-child)))
+  (save-excursion (org-goto-first-child)))
 (setq org-refile-target-verify-function 'my/verify-refile-target)
 (require 'org-clock)
 (defun sacha/org-entry-wpm ()
@@ -346,21 +346,21 @@ SCHEDULED: %^t
         (message "WPM: %d (words: %d, minutes: %d)" wpm words minutes)
         (kill-new (number-to-string wpm))))))
 (setq org-todo-keywords
-'((sequence
-    "TODO(t)"  ; next action
-    "TOBLOG(b)"  ; next action
-    "STARTED(s)"
-    "WAITING(w@/!)"
-    "POSTPONED(p)" "SOMEDAY(s@/!)" "|" "DONE(x!)" "CANCELLED(c@)")
-   (sequence "TODELEGATE(-)" "DELEGATED(d)" "COMPLETE(x)")))
+      '((sequence
+         "TODO(t)"  ; next action
+         "TOBLOG(b)"  ; next action
+         "STARTED(s)"
+         "WAITING(w@/!)"
+         "POSTPONED(p)" "SOMEDAY(s@/!)" "|" "DONE(x!)" "CANCELLED(c@)")
+        (sequence "TODELEGATE(-)" "DELEGATED(d)" "COMPLETE(x)")))
 (setq org-fontify-done-headline t)
 (custom-set-faces
-'(org-done ((t (:foreground "PaleGreen"   
-                 :weight normal
-                 :strike-through t))))
-'(org-headline-done 
-            ((((class color) (min-colors 16) (background dark)) 
-               (:foreground "LightSalmon" :strike-through t)))))
+ '(org-done ((t (:foreground "PaleGreen"   
+                             :weight normal
+                             :strike-through t))))
+ '(org-headline-done 
+   ((((class color) (min-colors 16) (background dark)) 
+     (:foreground "LightSalmon" :strike-through t)))))
 (setq org-tags-exclude-from-inheritance '("PROJECT"))
 (setq org-tag-alist '(("@work" . ?b) 
                       ("@home" . ?h) 
@@ -375,15 +375,15 @@ SCHEDULED: %^t
 (setq org-global-properties
       '(("Effort_ALL". "0:05 0:15 0:30 1:00 2:00 3:00 4:00")))
 (setq org-clock-idle-time nil)
-   (setq org-log-done 'time)
-   (defadvice org-clock-in (after wicked activate)
-"Mark STARTED when clocked in"
-(save-excursion
-  (catch 'exit
-    (org-back-to-heading t)
-    (if (looking-at org-outline-regexp) (goto-char (1- (match-end 0))))
-    (if (looking-at (concat " +" org-todo-regexp "\\( +\\|[ \t]*$\\)"))
-        (org-todo "STARTED")))))
+(setq org-log-done 'time)
+(defadvice org-clock-in (after wicked activate)
+  "Mark STARTED when clocked in"
+  (save-excursion
+    (catch 'exit
+      (org-back-to-heading t)
+      (if (looking-at org-outline-regexp) (goto-char (1- (match-end 0))))
+      (if (looking-at (concat " +" org-todo-regexp "\\( +\\|[ \t]*$\\)"))
+          (org-todo "STARTED")))))
 (setq org-habit-graph-column 80)
 (setq org-habit-show-habits-only-for-today nil)
 (add-hook 'org-clock-in-prepare-hook
@@ -403,8 +403,8 @@ SCHEDULED: %^t
       (progn
         (setq list (mapcar 'org-agenda-highlight-todo list))
         (if nosort
-          (setq ad-return-value
-            (subseq list 0 sacha/org-agenda-limit-items))
+            (setq ad-return-value
+                  (subseq list 0 sacha/org-agenda-limit-items))
           (when org-agenda-before-sorting-filter-function
             (setq list (delq nil (mapcar org-agenda-before-sorting-filter-function list))))
           (setq ad-return-value
@@ -466,8 +466,8 @@ DEF-FLAG   is t when a double ++ or -- indicates shift relative to
 (setq org-agenda-skip-deadline-if-done t)
 (setq org-agenda-time-grid
       '((daily today require-timed)
-       "----------------"
-       (800 1000 1200 1400 1600 1800)))
+        "----------------"
+        (800 1000 1200 1400 1600 1800)))
 (setq org-columns-default-format "%50ITEM %12SCHEDULED %TODO %3PRIORITY %Effort{:} %TAGS")
 (define-key org-agenda-mode-map "Y" 'org-agenda-todo-yesterday)
 (defun sacha/org-agenda-project-agenda ()
@@ -500,88 +500,88 @@ DEF-FLAG   is t when a double ++ or -- indicates shift relative to
         'type "tagsmatch")
       (concat heading "\n"
               (org-agenda-finalize-entries list)))))
-        
-  (defun sacha/org-agenda-projects-and-tasks (match)
-    "Show TODOs for all `org-agenda-files' headlines matching MATCH."
-    (interactive "MString: ")
-    (let ((todo-only nil))
-      (if org-agenda-overriding-arguments
-          (setq todo-only (car org-agenda-overriding-arguments)
-                match (nth 1 org-agenda-overriding-arguments)))
-      (let* ((org-tags-match-list-sublevels
-              org-tags-match-list-sublevels)
-             (completion-ignore-case t)
-             rtn rtnall files file pos matcher
-             buffer)
-        (when (and (stringp match) (not (string-match "\\S-" match)))
-          (setq match nil))
-        (setq matcher (org-make-tags-matcher match)
-              match (car matcher) matcher (cdr matcher))
-        (catch 'exit
-          (if org-agenda-sticky
-              (setq org-agenda-buffer-name
-                    (if (stringp match)
-                        (format "*Org Agenda(%s:%s)*"
-                                (or org-keys (or (and todo-only "M") "m")) match)
-                      (format "*Org Agenda(%s)*" (or (and todo-only "M") "m")))))
-          (org-agenda-prepare (concat "TAGS " match))
-          (org-compile-prefix-format 'tags)
-          (org-set-sorting-strategy 'tags)
-          (setq org-agenda-query-string match)
-          (setq org-agenda-redo-command
-                (list 'org-tags-view `(quote ,todo-only)
-                      (list 'if 'current-prefix-arg nil `(quote ,org-agenda-query-string))))
-          (setq files (org-agenda-files nil 'ifmode)
-                rtnall nil)
-          (while (setq file (pop files))
-            (catch 'nextfile
-              (org-check-agenda-file file)
-              (setq buffer (if (file-exists-p file)
-                               (org-get-agenda-file-buffer file)
-                             (error "No such file %s" file)))
-              (if (not buffer)
-                  ;; If file does not exist, error message to agenda
-                  (setq rtn (list
-                             (format "ORG-AGENDA-ERROR: No such org-file %s" file))
-                        rtnall (append rtnall rtn))
-                (with-current-buffer buffer
-                  (unless (derived-mode-p 'org-mode)
-                    (error "Agenda file %s is not in `org-mode'" file))
-                  (save-excursion
-                    (save-restriction
-                      (if org-agenda-restrict
-                          (narrow-to-region org-agenda-restrict-begin
-                                            org-agenda-restrict-end)
-                        (widen))
-                      (setq rtn (org-scan-tags 'sacha/org-agenda-project-agenda matcher todo-only))
-                      (setq rtnall (append rtnall rtn))))))))
-          (if org-agenda-overriding-header
-              (insert (org-add-props (copy-sequence org-agenda-overriding-header)
-                          nil 'face 'org-agenda-structure) "\n")
-            (insert "Headlines with TAGS match: ")
-            (add-text-properties (point-min) (1- (point))
-                                 (list 'face 'org-agenda-structure
-                                       'short-heading
-                                       (concat "Match: " match)))
-            (setq pos (point))
-            (insert match "\n")
-            (add-text-properties pos (1- (point)) (list 'face 'org-warning))
-            (setq pos (point))
-            (unless org-agenda-multi
-              (insert "Press `C-u r' to search again with new search string\n"))
-            (add-text-properties pos (1- (point)) (list 'face 'org-agenda-structure)))
-          (org-agenda-mark-header-line (point-min))
-          (when rtnall
-            (insert (mapconcat 'identity rtnall "\n") ""))
-          (goto-char (point-min))
-          (or org-agenda-multi (org-agenda-fit-window-to-buffer))
-          (add-text-properties (point-min) (point-max)
-                               `(org-agenda-type tags
-                                                 org-last-args (,todo-only ,match)
-                                                 org-redo-cmd ,org-agenda-redo-command
-                                                 org-series-cmd ,org-cmd))
-          (org-agenda-finalize)
-          (setq buffer-read-only t)))))
+
+(defun sacha/org-agenda-projects-and-tasks (match)
+  "Show TODOs for all `org-agenda-files' headlines matching MATCH."
+  (interactive "MString: ")
+  (let ((todo-only nil))
+    (if org-agenda-overriding-arguments
+        (setq todo-only (car org-agenda-overriding-arguments)
+              match (nth 1 org-agenda-overriding-arguments)))
+    (let* ((org-tags-match-list-sublevels
+            org-tags-match-list-sublevels)
+           (completion-ignore-case t)
+           rtn rtnall files file pos matcher
+           buffer)
+      (when (and (stringp match) (not (string-match "\\S-" match)))
+        (setq match nil))
+      (setq matcher (org-make-tags-matcher match)
+            match (car matcher) matcher (cdr matcher))
+      (catch 'exit
+        (if org-agenda-sticky
+            (setq org-agenda-buffer-name
+                  (if (stringp match)
+                      (format "*Org Agenda(%s:%s)*"
+                              (or org-keys (or (and todo-only "M") "m")) match)
+                    (format "*Org Agenda(%s)*" (or (and todo-only "M") "m")))))
+        (org-agenda-prepare (concat "TAGS " match))
+        (org-compile-prefix-format 'tags)
+        (org-set-sorting-strategy 'tags)
+        (setq org-agenda-query-string match)
+        (setq org-agenda-redo-command
+              (list 'org-tags-view `(quote ,todo-only)
+                    (list 'if 'current-prefix-arg nil `(quote ,org-agenda-query-string))))
+        (setq files (org-agenda-files nil 'ifmode)
+              rtnall nil)
+        (while (setq file (pop files))
+          (catch 'nextfile
+            (org-check-agenda-file file)
+            (setq buffer (if (file-exists-p file)
+                             (org-get-agenda-file-buffer file)
+                           (error "No such file %s" file)))
+            (if (not buffer)
+                ;; If file does not exist, error message to agenda
+                (setq rtn (list
+                           (format "ORG-AGENDA-ERROR: No such org-file %s" file))
+                      rtnall (append rtnall rtn))
+              (with-current-buffer buffer
+                (unless (derived-mode-p 'org-mode)
+                  (error "Agenda file %s is not in `org-mode'" file))
+                (save-excursion
+                  (save-restriction
+                    (if org-agenda-restrict
+                        (narrow-to-region org-agenda-restrict-begin
+                                          org-agenda-restrict-end)
+                      (widen))
+                    (setq rtn (org-scan-tags 'sacha/org-agenda-project-agenda matcher todo-only))
+                    (setq rtnall (append rtnall rtn))))))))
+        (if org-agenda-overriding-header
+            (insert (org-add-props (copy-sequence org-agenda-overriding-header)
+                        nil 'face 'org-agenda-structure) "\n")
+          (insert "Headlines with TAGS match: ")
+          (add-text-properties (point-min) (1- (point))
+                               (list 'face 'org-agenda-structure
+                                     'short-heading
+                                     (concat "Match: " match)))
+          (setq pos (point))
+          (insert match "\n")
+          (add-text-properties pos (1- (point)) (list 'face 'org-warning))
+          (setq pos (point))
+          (unless org-agenda-multi
+            (insert "Press `C-u r' to search again with new search string\n"))
+          (add-text-properties pos (1- (point)) (list 'face 'org-agenda-structure)))
+        (org-agenda-mark-header-line (point-min))
+        (when rtnall
+          (insert (mapconcat 'identity rtnall "\n") ""))
+        (goto-char (point-min))
+        (or org-agenda-multi (org-agenda-fit-window-to-buffer))
+        (add-text-properties (point-min) (point-max)
+                             `(org-agenda-type tags
+                                               org-last-args (,todo-only ,match)
+                                               org-redo-cmd ,org-agenda-redo-command
+                                               org-series-cmd ,org-cmd))
+        (org-agenda-finalize)
+        (setq buffer-read-only t)))))
 (defvar sacha/org-agenda-contexts
   '((tags-todo "+@phone/!-SOMEDAY")
     (tags-todo "+@work/!-SOMEDAY")
@@ -668,7 +668,7 @@ DEF-FLAG   is t when a double ++ or -- indicates shift relative to
          ((org-agenda-sorting-strategy '(priority-down tag-up category-keep effort-down))) )
         ("2" "List projects with tasks" sacha/org-agenda-projects-and-tasks
          "+PROJECT"
-           ((sacha/org-agenda-limit-items 3)))))
+         ((sacha/org-agenda-limit-items 3)))))
 (defun sacha/org-agenda-done (&optional arg)
   "Mark current TODO as done.
 This changes the line at point, all other lines in the agenda referring to
@@ -678,13 +678,13 @@ the same tree node, and the headline of the tree node in the Org-mode file."
 ;; Override the key definition for org-exit
 (define-key org-agenda-mode-map "x" 'sacha/org-agenda-done)
 (defun sacha/org-agenda-mark-done-and-add-followup ()
-    "Mark the current TODO as done and add another task after it.
+  "Mark the current TODO as done and add another task after it.
 Creates it at the same level as the previous task, so it's better to use
 this with to-do items than with projects or headings."
-    (interactive)
-    (org-agenda-todo "DONE")
-    (org-agenda-switch-to)
-    (org-capture 0 "t"))
+  (interactive)
+  (org-agenda-todo "DONE")
+  (org-agenda-switch-to)
+  (org-capture 0 "t"))
 ;; Override the key definition
 (define-key org-agenda-mode-map "X" 'sacha/org-agenda-mark-done-and-add-followup)
 (defun sacha/org-agenda-new ()
@@ -771,10 +771,10 @@ this with to-do items than with projects or headings."
         nil
         "\\<IGNORE\\>"))
 (defun sacha/quantified-get-hours (category time-summary)
-        "Return the number of hours based on the time summary."
-        (if (stringp category)
-           (if (assoc category time-summary) (/ (cdr (assoc category time-summary)) 3600.0) 0)
-          (apply '+ (mapcar (lambda (x) (sacha/quantified-get-hours x time-summary)) category))))
+  "Return the number of hours based on the time summary."
+  (if (stringp category)
+      (if (assoc category time-summary) (/ (cdr (assoc category time-summary)) 3600.0) 0)
+    (apply '+ (mapcar (lambda (x) (sacha/quantified-get-hours x time-summary)) category))))
 (defun sacha/org-summarize-focus-areas ()
   "Summarize previous and upcoming tasks as a list."
   (interactive)
@@ -882,12 +882,12 @@ this with to-do items than with projects or headings."
   (let ((base-date (apply 'encode-time (org-read-date-analyze "-fri" nil '(0 0 0))))
         (org-agenda-files '("~/personal/organizer.org" "~/personal/business.org" "~/personal/people.org")))
     (insert
-       (concat
-        "*** Weekly review: Week ending " (format-time-string "%B %e, %Y" base-date) "  :weekly:\n"
-        "*Blog posts*\n\n"
-        "*Focus areas and time review*\n\n"
-        (sacha/org-summarize-focus-areas)
-        "\n"))))
+     (concat
+      "*** Weekly review: Week ending " (format-time-string "%B %e, %Y" base-date) "  :weekly:\n"
+      "*Blog posts*\n\n"
+      "*Focus areas and time review*\n\n"
+      (sacha/org-summarize-focus-areas)
+      "\n"))))
 (eval-after-load 'org
   '(progn
      (define-key org-mode-map (kbd "C-c k") 'org-cut-subtree)
@@ -932,9 +932,9 @@ this with to-do items than with projects or headings."
         ("i" "#+index: ?" "#+index: ?")
         ("I" "#+include %file ?" "<include file=%file markup=\"?\">")))
 (setq org-link-abbrev-alist
-  '(("google" . "http://www.google.com/search?q=")
-    ("gmap" . "http://maps.google.com/maps?q=%s")
-    ("blog" . "http://sachachua.com/blog/p/")))
+      '(("google" . "http://www.google.com/search?q=")
+        ("gmap" . "http://maps.google.com/maps?q=%s")
+        ("blog" . "http://sachachua.com/blog/p/")))
 (use-package org-mobile
   :init
   (progn
@@ -955,19 +955,19 @@ this with to-do items than with projects or headings."
 (add-to-list 'org-speed-commands-user '("s" call-interactively 'org-schedule))
 (setq org-attach-store-link-p t)
 (setq tab-width 4)
-;(setenv "PATH" (concat "c:/cygwin/bin;" (getenv "PATH")))
-;(add-to-list 'exec-path "c:/cygwin/bin/" t) 
-;(require 'cygwin-mount)
-;(cygwin-mount-activate)
+                                        ;(setenv "PATH" (concat "c:/cygwin/bin;" (getenv "PATH")))
+                                        ;(add-to-list 'exec-path "c:/cygwin/bin/" t) 
+                                        ;(require 'cygwin-mount)
+                                        ;(cygwin-mount-activate)
 (add-hook 'comint-output-filter-functions
-    'shell-strip-ctrl-m nil t)
+          'shell-strip-ctrl-m nil t)
 (add-hook 'comint-output-filter-functions
-    'comint-watch-for-password-prompt nil t)
-;(setq explicit-shell-file-name "cmdproxy.exe")
-;(setq explicit-shell-file-name "bash.exe")
+          'comint-watch-for-password-prompt nil t)
+                                        ;(setq explicit-shell-file-name "cmdproxy.exe")
+                                        ;(setq explicit-shell-file-name "bash.exe")
 ;; For subprocesses invoked via the shell
 ;; (e.g., "shell -c command")
-;(setq shell-file-name explicit-shell-file-name)
+                                        ;(setq shell-file-name explicit-shell-file-name)
 (define-derived-mode drupal-mode php-mode "Drupal"
   "Major mode for Drupal source code.
 \\{drupal-mode-map}"
@@ -982,16 +982,16 @@ this with to-do items than with projects or headings."
   (c-set-offset 'case-label 2)
   (c-set-offset 'arglist-close 0)
   (setq yas/buffer-local-condition 
-  '(cond
-   ((looking-at "\\w") nil)
-   ((and
-     (not (bobp))
-     (or (equal "font-lock-comment-face"
-                (get-char-property (1- (point)) 'face))
-         (equal "font-lock-string-face"
-                (get-char-property (1- (point)) 'face))))
-    '(require-snippet-condition . force-in-comment))
-   (t t))))
+        '(cond
+          ((looking-at "\\w") nil)
+          ((and
+            (not (bobp))
+            (or (equal "font-lock-comment-face"
+                       (get-char-property (1- (point)) 'face))
+                (equal "font-lock-string-face"
+                       (get-char-property (1- (point)) 'face))))
+           '(require-snippet-condition . force-in-comment))
+          (t t))))
 (define-key drupal-mode-map (kbd "TAB") 'indent-according-to-mode)
 (add-hook 'drupal-mode-hook (lambda () (flymake-mode 1)))
 (add-hook 'drupal-mode-hook (lambda () (yas/minor-mode 1)))
@@ -1002,7 +1002,7 @@ this with to-do items than with projects or headings."
 (define-key drupal-mode-map (kbd "C-c C-c") 'comment-dwim)
 (defun sacha/drupal-module-name ()
   "Return the Drupal module name for .module and .install files."    (file-name-sans-extension (file-name-nondirectory
-                             (buffer-file-name))))
+                                                                                                (buffer-file-name))))
 (add-to-list 'hs-special-modes-alist '(drupal-mode "{" "}" "/[*/]" nil hs-c-like-adjust-block-beginning))
 (sacha/package-install 'expand-region)
 (use-package expand-region
@@ -1039,9 +1039,9 @@ this with to-do items than with projects or headings."
 ;; C-c C-v c : Switch prefix bunch of symbols.
 ;;             ex: '(hoge-var hoge-func) -> '(foo-var foo-func)
 ;; C-c C-v ? : Display flymake elint warnings/errors
-  (use-package erefactor
-    :config
-    (define-key emacs-lisp-mode-map "\C-c\C-v" erefactor-map))
+(use-package erefactor
+  :config
+  (define-key emacs-lisp-mode-map "\C-c\C-v" erefactor-map))
 (define-key emacs-lisp-mode-map (kbd "C-c .") 'find-function-at-point)
 (use-package yasnippet-bundle
   :init
@@ -1104,7 +1104,7 @@ this with to-do items than with projects or headings."
                              (elt
                               '("January" "February" "March" "April" "May" "June" "July" "August" "September" "October" "November" "December")
                               (% (+ (if (> amount 0) 10 11) month) 12)))
-                             t t nil 1))))
+                     t t nil 1))))
           (forward-line 1))))))
 (use-package typing
   :init
@@ -1158,26 +1158,26 @@ this with to-do items than with projects or headings."
   :init (setq inferior-R-program-name "c:/progra~1/R/R-2.15.0/bin/x64/Rterm.exe")
   :commands R)
 (defun sacha/artrage-export-png (directory &optional prefix)
-          "Change an Artrage script file (arscript) to export images to DIRECTORY. 
+  "Change an Artrage script file (arscript) to export images to DIRECTORY. 
     If PREFIX is specified, use that instead of image-."
-          (interactive "MPath: ")
-          (unless (file-directory-p directory)
-            (make-directory directory t))
-          (while (re-search-forward "[0-9\\.]+s" nil t)
-            (replace-match "0.000s"))
-          (goto-char (point-min))
-          (while (search-forward "<StrokeEvent>" nil t)
-            (replace-match (concat 
-                            "EvType: Command    CommandID: ExportLayer    Idx: -1    Channels: NO    Path: \""
-                            directory
-                            "/" (or prefix "image-")
-                            ".png\"
+  (interactive "MPath: ")
+  (unless (file-directory-p directory)
+    (make-directory directory t))
+  (while (re-search-forward "[0-9\\.]+s" nil t)
+    (replace-match "0.000s"))
+  (goto-char (point-min))
+  (while (search-forward "<StrokeEvent>" nil t)
+    (replace-match (concat 
+                    "EvType: Command    CommandID: ExportLayer    Idx: -1    Channels: NO    Path: \""
+                    directory
+                    "/" (or prefix "image-")
+                    ".png\"
 <StrokeEvent>") t t)))
 (defvar sacha/workrave-file (expand-file-name ".\\Workrave\\historystats" (getenv "AppData")))
 (defun sacha/workrave-transform-statistics (&optional file)
   (interactive (list sacha/workrave-file))
   (with-current-buffer (find-file-noselect file)
-  ;; D day month-1 year hour min day month-1 year hour min
+    ;; D day month-1 year hour min day month-1 year hour min
     (let ((result "Date\tStart\tEnd\tClicks\tKeystrokes\n"))
       (goto-char (point-min))
       (while (re-search-forward "^D \\(.*\\)" nil t)
@@ -1221,18 +1221,18 @@ entry, or the current subtree in Org."
                         (let* ((marker (org-get-at-bol 'org-marker))
                                (buffer (marker-buffer marker))
                                (pos (marker-position marker)))
-                        (with-current-buffer buffer
-                          (save-excursion
-                            (save-restriction
-                              (widen)
-                              (goto-char pos)
-                              (org-entry-get-with-inheritance "QUANTIFIED"))))))       
-                  (if org-clock-marker
-                      (save-excursion
-                        (org-clock-goto)
-                        (org-entry-get-with-inheritance "QUANTIFIED")))
-                  (if (derived-mode-p 'org-mode)
-                      (org-entry-get-with-inheritance "QUANTIFIED"))))))))
+                          (with-current-buffer buffer
+                            (save-excursion
+                              (save-restriction
+                                (widen)
+                                (goto-char pos)
+                                (org-entry-get-with-inheritance "QUANTIFIED"))))))       
+                    (if org-clock-marker
+                        (save-excursion
+                          (org-clock-goto)
+                          (org-entry-get-with-inheritance "QUANTIFIED")))
+                    (if (derived-mode-p 'org-mode)
+                        (org-entry-get-with-inheritance "QUANTIFIED"))))))))
 (defadvice face-attribute (around sacha activate)
   (if (symbolp (ad-get-arg 0))
       ad-do-it))
@@ -1250,7 +1250,7 @@ entry, or the current subtree in Org."
          (delq nil (mapcar
                     (lambda (x) (if (string-equal (substring x 0 1) ".") x))
                     ido-temp-list)))))
-;(setq eimp-mogrify-program "c:/Program Files/ImageMagick-6.8.3-Q16/mogrify.exe")
+                                        ;(setq eimp-mogrify-program "c:/Program Files/ImageMagick-6.8.3-Q16/mogrify.exe")
 (find-file "~/personal/organizer.org")
 (require 'org-compat)
 (org-agenda nil "a")
@@ -1268,62 +1268,62 @@ entry, or the current subtree in Org."
       (org-end-of-item-list)
       (yank))))
 (defvar sacha/org-quantified-categories 
-    '(("Business" 
-       ("Earn" . "Business - Earn") 
-       ("E1" . "Business - Earn - Consulting - E1") 
-       ("Connect" . "Business - Connect") 
-       ("Build" . "Business - Build"))
-      ("Discretionary"
-       ("Social" . "Discretionary - Social")
-       ("Productive" . "Discretionary - Productive")
-       ("Writing" . "Discretionary - Productive - Writing")
-       ("Emacs" . "Discretionary - Productive - Emacs")
-       ("Play" . "Discretionary - Play"))
-      ("Personal" ;("Biking" . "Personal - Bike")
-       ("Routines" . "Personal - Routines"))
-      ("Sleep" nil)
-      ("Unpaid work" 
-       ("Commuting" . "Unpaid work - Subway")
-       ("Cook" . "Unpaid work - Cook")
-       ("Tidy" . "Unpaid work - Tidy up")))
-    "Categories for time summary.")
-  
-  (defun sacha/org-summarize-time-use (&optional start end)
-    (require 'quantified)
-    (interactive)
-    (unless start (setq start (format-time-string "%Y-%m-%d" (days-to-time (- (time-to-number-of-days base-date) 6)))))
-    (unless end (setq end (format-time-string "%Y-%m-%d" (days-to-time (1+ (time-to-number-of-days base-date))))))
-    (let ((time-summary (quantified-summarize-time start end))
-          (categories sacha/org-quantified-categories)
-          result)
-      (setq result
-            (mapconcat
-             (lambda (a)
-               (if (assoc (car a) time-summary)
-                   (concat
-                    (format "- %s: %.1f hours" (car a) (/ (cdr (assoc (car a) time-summary)) 3600.0))
-                    (if (cdr a)
-                        (let ((detail
-                               (delq nil
-                                     (mapcar (lambda (b)
-                                               (if (assoc (cdr b) time-summary)
-                                                   (format "%s: %.1f"
-                                                           (car b)
-                                                           (/ (cdr (assoc (cdr b) time-summary)) 3600.0))
-                                                 nil))
-                                             (cdr a)))))
-                          (if detail
-                              (concat " (" (mapconcat 'identity detail ", ") ")")
-                            ""))
-                      "")
-                    (if (string-equal (car a) "Sleep")
-                        (format " - average of %.1f hours per day" (/ (cdr (assoc (car a) time-summary)) 3600.0 7.0))
-                      "")
-                    "\n")))
-       categories ""))
-(if (called-interactively-p)
-    (insert result)
-  result)))
+  '(("Business" 
+     ("Earn" . "Business - Earn") 
+     ("E1" . "Business - Earn - Consulting - E1") 
+     ("Connect" . "Business - Connect") 
+     ("Build" . "Business - Build"))
+    ("Discretionary"
+     ("Social" . "Discretionary - Social")
+     ("Productive" . "Discretionary - Productive")
+     ("Writing" . "Discretionary - Productive - Writing")
+     ("Emacs" . "Discretionary - Productive - Emacs")
+     ("Play" . "Discretionary - Play"))
+    ("Personal" ;("Biking" . "Personal - Bike")
+     ("Routines" . "Personal - Routines"))
+    ("Sleep" nil)
+    ("Unpaid work" 
+     ("Commuting" . "Unpaid work - Subway")
+     ("Cook" . "Unpaid work - Cook")
+     ("Tidy" . "Unpaid work - Tidy up")))
+  "Categories for time summary.")
+
+(defun sacha/org-summarize-time-use (&optional start end)
+  (require 'quantified)
+  (interactive)
+  (unless start (setq start (format-time-string "%Y-%m-%d" (days-to-time (- (time-to-number-of-days base-date) 6)))))
+  (unless end (setq end (format-time-string "%Y-%m-%d" (days-to-time (1+ (time-to-number-of-days base-date))))))
+  (let ((time-summary (quantified-summarize-time start end))
+        (categories sacha/org-quantified-categories)
+        result)
+    (setq result
+          (mapconcat
+           (lambda (a)
+             (if (assoc (car a) time-summary)
+                 (concat
+                  (format "- %s: %.1f hours" (car a) (/ (cdr (assoc (car a) time-summary)) 3600.0))
+                  (if (cdr a)
+                      (let ((detail
+                             (delq nil
+                                   (mapcar (lambda (b)
+                                             (if (assoc (cdr b) time-summary)
+                                                 (format "%s: %.1f"
+                                                         (car b)
+                                                         (/ (cdr (assoc (cdr b) time-summary)) 3600.0))
+                                               nil))
+                                           (cdr a)))))
+                        (if detail
+                            (concat " (" (mapconcat 'identity detail ", ") ")")
+                          ""))
+                    "")
+                  (if (string-equal (car a) "Sleep")
+                      (format " - average of %.1f hours per day" (/ (cdr (assoc (car a) time-summary)) 3600.0 7.0))
+                    "")
+                  "\n")))
+           categories ""))
+    (if (called-interactively-p)
+        (insert result)
+      result)))
 (defun sacha/org-summarize-upcoming-week ()
   "Summarize upcoming tasks as a list."
   (interactive)
@@ -1343,13 +1343,13 @@ entry, or the current subtree in Org."
          (t (add-to-list 'life (concat "  - [ ] " (match-string 3)))))))
     (setq string
           (concat
-      "*Plans for next week*\n"
-      "- Business\n"
-      (mapconcat 'identity business "\n")
-      "\n- Relationships\n"
-      (mapconcat 'identity relationships "\n")
-      "\n- Life\n"
-      (mapconcat 'identity life "\n")))
+           "*Plans for next week*\n"
+           "- Business\n"
+           (mapconcat 'identity business "\n")
+           "\n- Relationships\n"
+           (mapconcat 'identity relationships "\n")
+           "\n- Life\n"
+           (mapconcat 'identity life "\n")))
     (if (called-interactively-p)
         (kill-new string)
       string)))
@@ -1364,27 +1364,27 @@ entry, or the current subtree in Org."
           business relationships life)
       (with-temp-buffer
         (insert string)
-      (goto-char (point-min))
-      (while (re-search-forward "^  \\([^:]+\\): +.*?State:.*?\\(?:TODO\\|DONE\\) \\(.*?\\)\\(?:[       ]+\\(:[[:alnum:]_@#%:]+:\\)\\)?[        ]*$" nil t)
-        (cond
-         ((string= (match-string 1) "routines") nil) ; skip routine tasks
-         ((string= (match-string 1) "business")
-          (add-to-list 'business (concat "  - " (match-string 2))))
-         ((string= (match-string 1) "people")
-          (add-to-list 'relationships (concat "  - " (match-string 2))))
-         (t (add-to-list 'life (concat "  - " (match-string 2)))))))
-    (setq string
-          (concat
-           "*Accomplished this week*\n\n"
-           "- Business\n"
-           (mapconcat 'identity business "\n")
-           "\n- Relationships\n"
-           (mapconcat 'identity relationships "\n")
-           "\n- Life\n"
-           (mapconcat 'identity life "\n")))
-    (if (called-interactively-p)
-        (kill-new string)
-      string))))
+        (goto-char (point-min))
+        (while (re-search-forward "^  \\([^:]+\\): +.*?State:.*?\\(?:TODO\\|DONE\\) \\(.*?\\)\\(?:[       ]+\\(:[[:alnum:]_@#%:]+:\\)\\)?[        ]*$" nil t)
+          (cond
+           ((string= (match-string 1) "routines") nil) ; skip routine tasks
+           ((string= (match-string 1) "business")
+            (add-to-list 'business (concat "  - " (match-string 2))))
+           ((string= (match-string 1) "people")
+            (add-to-list 'relationships (concat "  - " (match-string 2))))
+           (t (add-to-list 'life (concat "  - " (match-string 2)))))))
+      (setq string
+            (concat
+             "*Accomplished this week*\n\n"
+             "- Business\n"
+             (mapconcat 'identity business "\n")
+             "\n- Relationships\n"
+             (mapconcat 'identity relationships "\n")
+             "\n- Life\n"
+             (mapconcat 'identity life "\n")))
+      (if (called-interactively-p)
+          (kill-new string)
+        string))))
 (defun sacha/animate-emacs-chat ()
   (interactive)
   (text-scale-set 6)
@@ -1412,65 +1412,65 @@ entry, or the current subtree in Org."
   :init
   (add-hook 'emacs-lisp-mode-hook (lambda () (paredit-mode 1))))
 (use-package smartparens
-    :init 
-    (progn
-(require 'smartparens-config)
-(add-hook 'emacs-lisp-mode-hook 'smartparens-mode)
+  :init 
+  (progn
+    (require 'smartparens-config)
+    (add-hook 'emacs-lisp-mode-hook 'smartparens-mode)
 ;;;;;;;;;;;;;;;;;;;;;;;;
-;; keybinding management
-(define-key sp-keymap (kbd "C-M-f") 'sp-forward-sexp)
-(define-key sp-keymap (kbd "C-M-b") 'sp-backward-sexp)
-(define-key sp-keymap (kbd "C-M-d") 'sp-down-sexp)
-(define-key sp-keymap (kbd "C-M-a") 'sp-backward-down-sexp)
-(define-key sp-keymap (kbd "C-S-a") 'sp-beginning-of-sexp)
-(define-key sp-keymap (kbd "C-S-d") 'sp-end-of-sexp)
-(define-key sp-keymap (kbd "C-M-e") 'sp-up-sexp)
-(define-key emacs-lisp-mode-map (kbd ")") 'sp-up-sexp)
-(define-key sp-keymap (kbd "C-M-u") 'sp-backward-up-sexp)
-(define-key sp-keymap (kbd "C-M-t") 'sp-transpose-sexp)
-(define-key sp-keymap (kbd "C-M-n") 'sp-next-sexp)
-(define-key sp-keymap (kbd "C-M-p") 'sp-previous-sexp)
-(define-key sp-keymap (kbd "C-M-k") 'sp-kill-sexp)
-(define-key sp-keymap (kbd "C-M-w") 'sp-copy-sexp)
-(define-key sp-keymap (kbd "M-<delete>") 'sp-unwrap-sexp)
-(define-key sp-keymap (kbd "M-<backspace>") 'sp-backward-unwrap-sexp)
-(define-key sp-keymap (kbd "C-<right>") 'sp-forward-slurp-sexp)
-(define-key sp-keymap (kbd "C-<left>") 'sp-forward-barf-sexp)
-(define-key sp-keymap (kbd "C-M-<left>") 'sp-backward-slurp-sexp)
-(define-key sp-keymap (kbd "C-M-<right>") 'sp-backward-barf-sexp)
-(define-key sp-keymap (kbd "M-D") 'sp-splice-sexp)
-(define-key sp-keymap (kbd "C-M-<delete>") 'sp-splice-sexp-killing-forward)
-(define-key sp-keymap (kbd "C-M-<backspace>") 'sp-splice-sexp-killing-backward)
-(define-key sp-keymap (kbd "C-S-<backspace>") 'sp-splice-sexp-killing-around)
-(define-key sp-keymap (kbd "C-]") 'sp-select-next-thing-exchange)
-(define-key sp-keymap (kbd "C-<left_bracket>") 'sp-select-previous-thing)
-(define-key sp-keymap (kbd "C-M-]") 'sp-select-next-thing)
-(define-key sp-keymap (kbd "M-F") 'sp-forward-symbol)
-(define-key sp-keymap (kbd "M-B") 'sp-backward-symbol)
-(define-key sp-keymap (kbd "H-t") 'sp-prefix-tag-object)
-(define-key sp-keymap (kbd "H-p") 'sp-prefix-pair-object)
-(define-key sp-keymap (kbd "H-s c") 'sp-convolute-sexp)
-(define-key sp-keymap (kbd "H-s a") 'sp-absorb-sexp)
-(define-key sp-keymap (kbd "H-s e") 'sp-emit-sexp)
-(define-key sp-keymap (kbd "H-s p") 'sp-add-to-previous-sexp)
-(define-key sp-keymap (kbd "H-s n") 'sp-add-to-next-sexp)
-(define-key sp-keymap (kbd "H-s j") 'sp-join-sexp)
-(define-key sp-keymap (kbd "H-s s") 'sp-split-sexp)
+    ;; keybinding management
+    (define-key sp-keymap (kbd "C-M-f") 'sp-forward-sexp)
+    (define-key sp-keymap (kbd "C-M-b") 'sp-backward-sexp)
+    (define-key sp-keymap (kbd "C-M-d") 'sp-down-sexp)
+    (define-key sp-keymap (kbd "C-M-a") 'sp-backward-down-sexp)
+    (define-key sp-keymap (kbd "C-S-a") 'sp-beginning-of-sexp)
+    (define-key sp-keymap (kbd "C-S-d") 'sp-end-of-sexp)
+    (define-key sp-keymap (kbd "C-M-e") 'sp-up-sexp)
+    (define-key emacs-lisp-mode-map (kbd ")") 'sp-up-sexp)
+    (define-key sp-keymap (kbd "C-M-u") 'sp-backward-up-sexp)
+    (define-key sp-keymap (kbd "C-M-t") 'sp-transpose-sexp)
+    (define-key sp-keymap (kbd "C-M-n") 'sp-next-sexp)
+    (define-key sp-keymap (kbd "C-M-p") 'sp-previous-sexp)
+    (define-key sp-keymap (kbd "C-M-k") 'sp-kill-sexp)
+    (define-key sp-keymap (kbd "C-M-w") 'sp-copy-sexp)
+    (define-key sp-keymap (kbd "M-<delete>") 'sp-unwrap-sexp)
+    (define-key sp-keymap (kbd "M-<backspace>") 'sp-backward-unwrap-sexp)
+    (define-key sp-keymap (kbd "C-<right>") 'sp-forward-slurp-sexp)
+    (define-key sp-keymap (kbd "C-<left>") 'sp-forward-barf-sexp)
+    (define-key sp-keymap (kbd "C-M-<left>") 'sp-backward-slurp-sexp)
+    (define-key sp-keymap (kbd "C-M-<right>") 'sp-backward-barf-sexp)
+    (define-key sp-keymap (kbd "M-D") 'sp-splice-sexp)
+    (define-key sp-keymap (kbd "C-M-<delete>") 'sp-splice-sexp-killing-forward)
+    (define-key sp-keymap (kbd "C-M-<backspace>") 'sp-splice-sexp-killing-backward)
+    (define-key sp-keymap (kbd "C-S-<backspace>") 'sp-splice-sexp-killing-around)
+    (define-key sp-keymap (kbd "C-]") 'sp-select-next-thing-exchange)
+    (define-key sp-keymap (kbd "C-<left_bracket>") 'sp-select-previous-thing)
+    (define-key sp-keymap (kbd "C-M-]") 'sp-select-next-thing)
+    (define-key sp-keymap (kbd "M-F") 'sp-forward-symbol)
+    (define-key sp-keymap (kbd "M-B") 'sp-backward-symbol)
+    (define-key sp-keymap (kbd "H-t") 'sp-prefix-tag-object)
+    (define-key sp-keymap (kbd "H-p") 'sp-prefix-pair-object)
+    (define-key sp-keymap (kbd "H-s c") 'sp-convolute-sexp)
+    (define-key sp-keymap (kbd "H-s a") 'sp-absorb-sexp)
+    (define-key sp-keymap (kbd "H-s e") 'sp-emit-sexp)
+    (define-key sp-keymap (kbd "H-s p") 'sp-add-to-previous-sexp)
+    (define-key sp-keymap (kbd "H-s n") 'sp-add-to-next-sexp)
+    (define-key sp-keymap (kbd "H-s j") 'sp-join-sexp)
+    (define-key sp-keymap (kbd "H-s s") 'sp-split-sexp)
 ;;;;;;;;;;;;;;;;;;
-;; pair management
-(sp-local-pair 'minibuffer-inactive-mode "'" nil :actions nil)
+    ;; pair management
+    (sp-local-pair 'minibuffer-inactive-mode "'" nil :actions nil)
 ;;; markdown-mode
-(sp-with-modes '(markdown-mode gfm-mode rst-mode)
-  (sp-local-pair "*" "*" :bind "C-*")
-  (sp-local-tag "2" "**" "**")
-  (sp-local-tag "s" "```scheme" "```")
-  (sp-local-tag "<"  "<_>" "</_>" :transform 'sp-match-sgml-tags))
+    (sp-with-modes '(markdown-mode gfm-mode rst-mode)
+                   (sp-local-pair "*" "*" :bind "C-*")
+                   (sp-local-tag "2" "**" "**")
+                   (sp-local-tag "s" "```scheme" "```")
+                   (sp-local-tag "<"  "<_>" "</_>" :transform 'sp-match-sgml-tags))
 ;;; tex-mode latex-mode
-(sp-with-modes '(tex-mode plain-tex-mode latex-mode)
-  (sp-local-tag "i" "1d5f8e69396c521f645375107197ea4dfbc7b792quot;<" "1d5f8e69396c521f645375107197ea4dfbc7b792quot;>"))
+    (sp-with-modes '(tex-mode plain-tex-mode latex-mode)
+                   (sp-local-tag "i" "1d5f8e69396c521f645375107197ea4dfbc7b792quot;<" "1d5f8e69396c521f645375107197ea4dfbc7b792quot;>"))
 ;;; html-mode
-(sp-with-modes '(html-mode sgml-mode)
-  (sp-local-pair "<" ">"))
+    (sp-with-modes '(html-mode sgml-mode)
+                   (sp-local-pair "<" ">"))
 ;;; lisp modes
-(sp-with-modes sp--lisp-modes
-  (sp-local-pair "(" nil :bind "C-("))))
+    (sp-with-modes sp--lisp-modes
+                   (sp-local-pair "(" nil :bind "C-("))))
