@@ -15,10 +15,16 @@
 ;;=== Tags.
 
 (autoload 'gtags-mode "gtags" "" t)
-
 (eval-after-load "gtags"
   '(progn
-     (define-key gtags-mode-map (kbd "M-,") 'gtags-find-rtag)))
+     (define-key gtags-mode-map (kbd "<f9>") 'gtags-find-pattern)
+     (define-key gtags-mode-map (kbd "<S-f9>") 'gtags-pop-stack)
+     (define-key gtags-mode-map (kbd "<f10>") 'gtags-find-tag)
+     (define-key gtags-mode-map (kbd "<S-f10>") 'gtags-find-rtag)
+     (define-key gtags-mode-map (kbd "<f11>") 'gtags-find-symbol)
+     (define-key gtags-mode-map (kbd "<f12>") 'speedbar)
+     )
+  )
 (defun ff/turn-on-gtags ()
   "Turn `gtags-mode' on if a global tags file has been generated.
 
@@ -40,6 +46,10 @@ turned on."
             (gtags-mode 1)))))))
 
 (add-hook 'c-mode-common-hook 'ff/turn-on-gtags)
+
+;;(when window-system
+;;  (speedbar t))
+
 
 ;;=== Indent argist by indent instead of lining up with open paren.
 
