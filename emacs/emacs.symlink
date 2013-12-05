@@ -4,18 +4,31 @@
 
 (custom-set-variables
  '(user-mail-address "mark.w.christiansen@l-3com.com"))
-(setq inhibit-startup-message t)
+;; (setq inhibit-startup-message t)
+
+;;====================================================================
+;; I hate tabs!
+;;====================================================================
+
+(setq-default indent-tabs-mode nil)
+
+;;====================================================================
+;; Add search paths.
+;;====================================================================
+
 (add-to-list 'load-path "~/.emacs.d/site-lisp")
 (add-to-list 'load-path "~/.emacs.d/site-lisp/org-8.2.1/lisp")
 (add-to-list 'load-path "~/.dotfiles/emacs/lisp/company-mode")
 (add-to-list 'load-path "~/.dotfiles/emacs/lisp")
 
 ;;====================================================================
-;; Unset the function keys.
+;; Set global function keys.
 ;;====================================================================
+
 (global-unset-key (kbd "<f1>"))
 (global-unset-key (kbd "<f2>"))
-(global-unset-key (kbd "<f3>"))
+(global-set-key (kbd "<f3>") 'isearch-forward)
+(global-set-key (kbd "<S-f3>") 'isearch-backward)
 (global-unset-key (kbd "<f4>"))
 (global-unset-key (kbd "<f5>"))
 (global-unset-key (kbd "<f6>"))
@@ -24,7 +37,22 @@
 (global-unset-key (kbd "<f9>"))
 (global-unset-key (kbd "<f10>"))
 (global-unset-key (kbd "<f11>"))
-(global-unset-key (kbd "<f12>"))
+(global-set-key (kbd "<f12>") 'gtags-mode)
+
+;;====================================================================
+;; Set other global keys.
+;;====================================================================
+
+(global-set-key "\M-r" 'query-replace)
+(global-set-key "\M-R" 'query-replace-regexp) ;; NB: uses upper-case "R"
+(global-set-key "\M-\C-s" 'isearch-forward-regexp)
+(global-set-key "\M-\C-r" 'isearch-backward-regexp)
+(global-set-key "\M-#" 'indent-entire-buffer)
+(global-set-key "\C-xg" 'goto-line)
+(global-set-key "\C-x\C-i" 'insert-file)
+(global-set-key "\C-x\C-m" 'toggle-read-only)
+(global-set-key "\C-x=" 'what-line)
+(global-set-key "\C-z" 'goto-line)
 
 ;;====================================================================
 ;; Useful for keeping packets up to date.
@@ -40,43 +68,16 @@ If REPOSITORY is specified, use that."
     (package-install package))))
 
 ;;====================================================================
-;; Theme stuff
-;; to reload : meta-x load-file .emacs
-;; to reload one line/function, at end of line type C-xC-e
-;;====================================================================
-
-;(setq default-frame-alist
-;      '((width             . 80)
-;	(height            . 40)
-;	(foreground-color  . "white")
-;	(background-color  . "black")
-;	(cursor-color      . "red")))
-
-;;====================================================================
 ;; ClearCase stuff
 ;;====================================================================
 
 ;(load "clearcase")
 ;(autoload 'visual-basic-mode "visual-basic-mode" "Visual Basic mode." t)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Meta commands:
-(global-set-key "\M-r" 'query-replace)
-(global-set-key "\M-R" 'query-replace-regexp) ;; NB: uses upper-case "R"
-(global-set-key "\M-\C-s" 'isearch-forward-regexp)
-(global-set-key "\M-\C-r" 'isearch-backward-regexp)
-(global-set-key "\M-#" 'indent-entire-buffer)
+;;====================================================================
+;; Version/backup stuff.
+;;====================================================================
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; eXtended commands:
-(global-set-key "\C-xg" 'goto-line)
-(global-set-key "\C-x\C-i" 'insert-file)
-(global-set-key "\C-x\C-m" 'toggle-read-only)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Miscellaneous:
-(global-set-key "\C-x=" 'what-line)
-(global-set-key "\C-z" 'goto-line)
 (setq delete-old-versions t
       kept-new-versions 6
       kept-old-versions 2
@@ -86,8 +87,9 @@ If REPOSITORY is specified, use that."
 (setq auto-save-default nil)		; Disabled
 (setq auto-save-list-file-prefix nil)	; Learn to use ^X^S
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;====================================================================
 ;; Color settings for version 21.x and below (not supported by 22.x):
+;;====================================================================
 
 (if (and (eq window-system 'x) (<= emacs-major-version 21))
     (progn
