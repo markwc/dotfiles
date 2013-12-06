@@ -21,8 +21,9 @@
 ;; ClearCase stuff.
 ;;====================================================================
 
-(load "vc-clearcase")
-(load "vc-clearcase-auto")
+(load "clearcase")
+;; (load "vc-clearcase")
+;; (load "vc-clearcase-auto")
 
 ;;====================================================================
 ;; Tags.
