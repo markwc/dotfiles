@@ -17,8 +17,8 @@
 
 (add-to-list 'load-path "~/.emacs.d/site-lisp")
 (add-to-list 'load-path "~/.emacs.d/site-lisp/org-8.2.1/lisp")
+(add-to-list 'load-path "~/.emacs.d/lisp/company-mode")
 (add-to-list 'load-path "~/.dotfiles/emacs/lisp")
-(add-to-list 'load-path "~/.dotfiles/emacs/lisp/company-mode")
 
 ;;====================================================================
 ;; Set global function keys.
