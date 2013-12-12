@@ -18,6 +18,7 @@
 (add-to-list 'load-path "~/.dotfiles/emacs/lisp")
 (add-to-list 'load-path "~/.emacs.d/lisp")
 (add-to-list 'load-path "~/.emacs.d/lisp/company-mode")
+(add-to-list 'load-path "~/.emacs.d/lisp/org-mode")
 
 ;;====================================================================
 ;; Set global function keys.
@@ -189,9 +190,9 @@ Note the weekly scope of the command's precision.")
   (interactive) 
   (insert (format-time-string current-time-format (current-time))) 
   ) 
-(global-set-key "\C-c\C-d" 'insert-current-date) 
-(global-set-key "\C-c\C-t" 'insert-current-time)
-(global-set-key "\C-c\C-f" 'insert-debug-line)
+(global-set-key (kbd "C-c C-d") 'insert-current-date) 
+(global-set-key (kbd "C-c C-t") 'insert-current-time)
+(global-set-key (kbd "C-c C-f") 'insert-debug-line)
 
 ;;====================================================================
 ;; Other customizations.
@@ -217,4 +218,3 @@ Note the weekly scope of the command's precision.")
 (load "~/.dotfiles/emacs/latex-mode.emacs")
 
 (require 'sql)
-

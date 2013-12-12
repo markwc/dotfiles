@@ -95,14 +95,9 @@ turned on."
                                                  (arglist-cont . 0)
                                                  (arglist-close . 0)
                                                  ))) t)
-  ;;=== Uncomment the following for case sensitive searches:
-  ;;(define-key c-mode-base-map "\M-r" 'query-replace-case-sensitive)
-  ;;(define-key c-mode-base-map "\C-s" 'isearch-forward-case-sensitive)
-  ;;(define-key c-mode-base-map "\C-r" 'isearch-backward-case-sensitive)
-  ;;=== Uncomment the following for NON-case sensitive searches:
   (define-key c-mode-base-map (kbd "<f5>") 'gdb)
   (define-key c-mode-base-map (kbd "<f7>") 'compile)
-  (define-key c-mode-base-map "\M-r" 'query-replace))
+  (define-key c-mode-base-map (kbd "M-r") 'query-replace))
 
 ;;====================================================================
 ;; Debug stuff
