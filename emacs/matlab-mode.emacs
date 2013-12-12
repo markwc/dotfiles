@@ -10,7 +10,6 @@
 (defun my-matlab-mode-hook ()
   (setq fill-column 76))		; where auto-fill should wrap
 (add-hook 'matlab-mode-hook 'my-matlab-mode-hook)
-(defun my-matlab-shell-mode-hook ()
-  '())
+(defun my-matlab-shell-mode-hook () '())
 (add-hook 'matlab-shell-mode-hook 'my-matlab-shell-mode-hook)
 

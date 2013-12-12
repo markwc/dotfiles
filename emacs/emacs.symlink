@@ -6,12 +6,6 @@
  '(user-mail-address "mark.w.christiansen@l-3com.com"))
 
 ;;====================================================================
-;; I hate tabs!
-;;====================================================================
-
-(setq-default indent-tabs-mode nil)
-
-;;====================================================================
 ;; Add search paths.
 ;;====================================================================
 
@@ -19,6 +13,15 @@
 (add-to-list 'load-path "~/.emacs.d/lisp")
 (add-to-list 'load-path "~/.emacs.d/lisp/company-mode")
 (add-to-list 'load-path "~/.emacs.d/lisp/org-mode")
+
+;;====================================================================
+;; Basic setup.
+;;====================================================================
+
+(menu-bar-mode 0)                       ; Do not show me the menu!
+(show-paren-mode t)                     ; Show me the parenthesis!
+(setq-default indent-tabs-mode nil)     ; I hate tabs!
+(global-font-lock-mode 1)               ; I like colors!
 
 ;;====================================================================
 ;; Set global function keys.
@@ -43,14 +46,15 @@
 ;; Set other global keys.
 ;;====================================================================
 
-(global-set-key (kbd "M-r") 'query-replace)
-(global-set-key (kbd "M-R") 'query-replace-regexp) ;; NB: uses upper-case "R"
-(global-set-key (kbd "M-C-s") 'isearch-forward-regexp)
-(global-set-key (kbd "M-C-r") 'isearch-backward-regexp)
+(global-set-key (kbd "C-c i") 'indent-region)
 (global-set-key (kbd "C-x C-i") 'insert-file)
 (global-set-key (kbd "C-x C-m") 'toggle-read-only)
 (global-set-key (kbd "C-x =") 'what-line)
 (global-set-key (kbd "C-z") 'goto-line)
+(global-set-key (kbd "M-r") 'query-replace)
+(global-set-key (kbd "M-R") 'query-replace-regexp) ;; NB: uses upper-case "R"
+(global-set-key (kbd "M-C-s") 'isearch-forward-regexp)
+(global-set-key (kbd "M-C-r") 'isearch-backward-regexp)
 
 ;;====================================================================
 ;; Useful for keeping packets up to date.
@@ -192,15 +196,10 @@ Note the weekly scope of the command's precision.")
   ) 
 (global-set-key (kbd "C-c C-d") 'insert-current-date) 
 (global-set-key (kbd "C-c C-t") 'insert-current-time)
-(global-set-key (kbd "C-c C-f") 'insert-debug-line)
 
 ;;====================================================================
 ;; Other customizations.
 ;;====================================================================
-
-(global-font-lock-mode 1)
-
-(show-paren-mode t)
 
 (setq auto-mode-alist
       (cons '("\\.txt\\'" . outline-mode) auto-mode-alist))
@@ -211,10 +210,9 @@ Note the weekly scope of the command's precision.")
 (require 'pomodoro)
 (require 'use-package)       ; https://github.com/jwiegley/use-package
 (require 'bind-key)          ; https://github.com/jwiegley/use-package
+(require 'sql)
 
 (load "~/.dotfiles/emacs/coding-stuff.emacs")
 (load "~/.dotfiles/emacs/matlab-mode.emacs")
 (load "~/.dotfiles/emacs/org-mode.emacs")
 (load "~/.dotfiles/emacs/latex-mode.emacs")
-
-(require 'sql)
