@@ -1,6 +1,6 @@
 alias sv='source activate'
 alias ls='\ls -F'
-if [ $OSTYPE == "linux" ]; then
+if [ $OSTYPE == "linux" -o $OSTYPE == "linux-gnu" ]; then
     alias ls='\ls --color'
 else
     alias ls='\ls -F'
