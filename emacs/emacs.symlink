@@ -18,7 +18,6 @@
 ;; Basic setup.
 ;;====================================================================
 
-(menu-bar-mode 0)                       ; Do not show me the menu!
 (show-paren-mode t)                     ; Show me the parenthesis!
 (setq-default indent-tabs-mode nil)     ; I hate tabs!
 (global-font-lock-mode 1)               ; I like colors!
