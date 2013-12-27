@@ -16,7 +16,7 @@ ulimit -c unlimited
 
 # Add our own paths
 PATH="$HOME/.dotfiles/bin:$HOME/bin:$PATH"
-CDPATH="$HOME:$HOME/src"
+CDPATH="$HOME:$Documents"
 LD_LIBRARY_PATH="$HOME/lib"
 MANPATH="$HOME/share/man:$MANPATH"
 
