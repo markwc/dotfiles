@@ -1,0 +1,4 @@
+* Linux Distro
+  xubuntu 12.04
+* Wireless Driver
+  sudo apt-get install firmware-b43-installer
