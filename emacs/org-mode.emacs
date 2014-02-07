@@ -6,10 +6,8 @@
 (require 'org-capture)
 
 (setq org-directory "~/.org")
-(setq org-default-notes-file "~/.org/organizer.org")
-(setq org-agenda-files '("~/.org/organizer.org"))
-(setq org-default-notes-file (concat org-directory "~/.org/organizer.org"))
-
+(setq org-agenda-files (concat org-directory "/organizer.org"))
+(setq org-default-notes-file (concat org-directory "/organizer.org"))
 (add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\)$" . org-mode))
 
 ;;====================================================================
