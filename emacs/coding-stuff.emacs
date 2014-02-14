@@ -99,7 +99,7 @@ turned on."
   (defun insert-debug-line ()
     "Insert debug line at cursor point."
     (interactive)
-    (insert "cerr << __FUNCTION__ << endl;"))
+    (insert "std::cerr << __FUNCTION__ << std:endl;"))
   (define-key c-mode-base-map (kbd "<f5>") 'gdb)
   (define-key c-mode-base-map (kbd "<f7>") 'compile)
   (define-key c-mode-base-map (kbd "C-c C-f") 'insert-debug-line)
