@@ -56,7 +56,4 @@ alias prebuild 'pushd $FS_COMPONENT/src; make prebuild; popd'
 alias pb       'cd $PROJECT_BASE'
 
 ### All done
-setenv PATH /software/doxygen/arcanist/bin/:${PATH}
-setenv PATH /data/git/nwo/:${PATH}
-set savehist=200
 
