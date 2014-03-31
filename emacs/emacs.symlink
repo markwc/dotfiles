@@ -217,4 +217,5 @@ Note the weekly scope of the command's precision.")
 (load "~/.dotfiles/emacs/matlab-mode.emacs")
 (load "~/.dotfiles/emacs/org-mode.emacs")
 (load "~/.dotfiles/emacs/latex-mode.emacs")
+(load "~/.emacs.d/site-specific")
 
