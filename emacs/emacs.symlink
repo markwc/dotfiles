@@ -210,8 +210,10 @@ Note the weekly scope of the command's precision.")
 (require 'use-package)       ; https://github.com/jwiegley/use-package
 (require 'bind-key)          ; https://github.com/jwiegley/use-package
 (require 'sql)
+(require 'mediawiki)
 
 (load "~/.dotfiles/emacs/coding-stuff.emacs")
 (load "~/.dotfiles/emacs/matlab-mode.emacs")
 (load "~/.dotfiles/emacs/org-mode.emacs")
 (load "~/.dotfiles/emacs/latex-mode.emacs")
+
