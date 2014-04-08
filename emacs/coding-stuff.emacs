@@ -91,13 +91,13 @@ turned on."
   "Perform site-specific c-mode customization"
   ;; substatement-open: indentation of { following a control statement
   ;; (see lisp/progmodes/cc-styles.el for more options)
-  (c-add-style  "gnu2" '("gnu" (c-offsets-alist .
-                                                ((substatement-open . 0)
-                                                 (arglist-intro . +)
-                                                 (arglist-cont-nonempty . +)
-                                                 (arglist-cont . 0)
-                                                 (arglist-close . 0)
-                                                 ))) t)
+  (c-add-style  "gnu2" '("gnu" (c-offsets-alist
+                                . ((substatement-open . 0)
+                                   (arglist-intro . +)
+                                   (arglist-cont-nonempty . c-lineup-arglist)
+                                   (arglist-cont . 0)
+                                   (arglist-close . 0)
+                                   ))) t)
   (defun insert-debug-line ()
     "Insert debug line at cursor point."
     (interactive)
