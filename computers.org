@@ -1,12 +1,18 @@
+#+STARTUP: hidestars
 * All
 ** Canon PIXMA MG5220 Drivers
    http://support-au.canon.com.au/contents/AU/EN/0100301702.html
 ** Dotfiles
    git clone git@github.com:markwc/dotfiles.git
+** Dropbox
+   https://www.dropbox.com/install?os=lnx
 ** LaTeX Files
    Dropbox/texmf.tar
    sudo apt-get install texlive-latex-base
-** Emacs Files   
+** Emacs Files
+*** .emacs.d/lisp
+    git org-mode and company
+    touch site-lisp.el
 * Acer Aspire 3000
 ** Linux Distro
   xubuntu 12.04
