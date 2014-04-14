@@ -13,6 +13,8 @@
 *** .emacs.d/lisp
     git org-mode and company
     touch site-lisp.el
+    wget http://orgmode.org/org-8.2.5h.tar.gz
+    git clone https://github.org/company-mode/company-mode.git
 * Acer Aspire 3000
 ** Linux Distro
   xubuntu 12.04
