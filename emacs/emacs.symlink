@@ -10,7 +10,7 @@
  '(c-report-syntactic-errors t)
  '(inhibit-startup-screen t)
  '(mediawiki-site-alist (quote (("WikiMark" "http://wiki.markwc.com/" "Mark Christiansen" "" "Main_Page"))))
- '(user-mail-address "mark.w.christiansen@l-3com.com"))
+ '(user-mail-address "mail@markwc.com"))
 
 ;;====================================================================
 ;; Add search paths.
@@ -61,20 +61,6 @@
 (global-set-key (kbd "M-R") 'query-replace-regexp) ;; NB: uses upper-case "R"
 (global-set-key (kbd "M-C-s") 'isearch-forward-regexp)
 (global-set-key (kbd "M-C-r") 'isearch-backward-regexp)
-
-;;====================================================================
-;; Useful for keeping packets up to date.
-;;====================================================================
-
-(defun sacha/package-install (package &optional repository)
-  "Install PACKAGE if it has not yet been installed.
-If REPOSITORY is specified, use that."
-  (unless (package-installed-p package)
-    (let ((package-archives
-           (if repository
-               (list (assoc repository package-archives))
-             package-archives)))
-      (package-install package))))
 
 ;;====================================================================
 ;; Version/backup stuff.

@@ -97,6 +97,7 @@ turned on."
                                    (arglist-cont-nonempty . c-lineup-arglist)
                                    (arglist-cont . 0)
                                    (arglist-close . 0)
+                                   (innamespace . [0])
                                    ))) t)
   (defun insert-debug-line ()
     "Insert debug line at cursor point."
