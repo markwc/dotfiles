@@ -20,6 +20,7 @@
 (add-to-list 'load-path "~/.emacs.d/lisp")
 (add-to-list 'load-path "~/.emacs.d/lisp/company-mode")
 (add-to-list 'load-path "~/.emacs.d/lisp/org-mode/lisp")
+(add-to-list 'load-path "~/.emacs.d/lisp/tags-view")
 ;;====================================================================
 ;; Basic setup.
 ;;====================================================================
@@ -191,8 +192,6 @@ Note the weekly scope of the command's precision.")
 
 (autoload 'markdown-mode "markdown-mode" "For editing Markdown files" t)
 (setq auto-mode-alist (cons '("\\.md\\'" . markdown-mode) auto-mode-alist))
-
-(load "site-lisp")
 
 (require 'pomodoro)
 (require 'use-package)       ; https://github.com/jwiegley/use-package

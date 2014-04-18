@@ -7,14 +7,14 @@
 ** Dropbox
    https://www.dropbox.com/install?os=lnx
 ** LaTeX Files
+   sudo apt-get install texlive-full
    Dropbox/texmf.tar
-   sudo apt-get install texlive-latex-base
 ** Emacs Files
-*** .emacs.d/lisp
-    git org-mode and company
-    touch site-lisp.el
-    wget http://orgmode.org/org-8.2.5h.tar.gz
-    git clone https://github.org/company-mode/company-mode.git
+   sudo apt-get install org-mode
+   cd .emacs.d/lisp
+   touch site-specific.el
+   git clone https://github.com/markhepburn/tags-view.git
+   git clone https://github.org/company-mode/company-mode.git
 * Acer Aspire 3000
 ** Linux Distro
   xubuntu 12.04
