@@ -12,8 +12,11 @@
    tar xvf Dropbox/texmf.tar
 ** Emacs Files
    sudo apt-get install org-mode
-   cd .emacs.d/lisp
+   mkdir .emacs.d
+   cd .emacs.d
    touch site-specific.el
+   mkdir lisp
+   cd .emacs.d/lisp
    git clone https://github.com/markhepburn/tags-view.git
    git clone https://github.org/company-mode/company-mode.git
 * Acer Aspire 3000
