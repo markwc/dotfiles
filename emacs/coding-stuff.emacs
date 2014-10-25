@@ -99,6 +99,8 @@ turned on."
     "Insert debug line at cursor point."
     (interactive)
     (insert "std::cerr << __FUNCTION__ << std::endl;"))
+  (define-key c-mode-base-map (kbd "<f1>") 'clang-format-buffer)
+  (define-key c-mode-base-map (kbd "<f2>") 'clang-format-region)
   (define-key c-mode-base-map (kbd "<f5>") 'gdb)
   (define-key c-mode-base-map (kbd "<f7>") 'compile)
   (define-key c-mode-base-map (kbd "C-c C-f") 'insert-debug-line)

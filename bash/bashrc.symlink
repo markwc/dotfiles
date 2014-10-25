@@ -15,10 +15,10 @@ HISTFILESIZE=1000000
 ulimit -c unlimited
 
 # Add our own paths
-PATH="$HOME/.dotfiles/bin:$HOME/bin:$PATH"
-CDPATH="$HOME:$Documents"
-LD_LIBRARY_PATH="$HOME/lib"
-MANPATH="$HOME/share/man:$MANPATH"
+PATH=$HOME/.dotfiles/bin:$HOME/bin:$PATH
+CDPATH=$HOME:$Documents
+LD_LIBRARY_PATH=$HOME/lib:$LD_LIBRARY_PATH
+MANPATH=$HOME/share/man:$MANPATH
 
 # get all of our .bash files
 for f in `find $HOME/.dotfiles/ -name '*.bash'`
@@ -26,6 +26,12 @@ do
   echo "Sourcing $f"
   source $f
 done
+
+if [ -e ~/.bashrc.local ]
+then
+  echo "Sourcing" ~/.bashrc.local 
+  source ~/.bashrc.local
+fi
 
 # get dircolors working
 if [ $OSTYPE == "linux" ]; then
