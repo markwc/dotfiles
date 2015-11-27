@@ -1,47 +1,70 @@
 ---
 # BasedOnStyle:  LLVM
 AccessModifierOffset: -2
-ConstructorInitializerIndentWidth: 2
+AlignAfterOpenBracket: true
+# AlignConsecutiveAssignments: true -- Not in 3.6
 AlignEscapedNewlinesLeft: false
+AlignOperands: true
 AlignTrailingComments: true
 AllowAllParametersOfDeclarationOnNextLine: true
+AllowShortBlocksOnASingleLine: false
+AllowShortCaseLabelsOnASingleLine: false
+AllowShortFunctionsOnASingleLine: Empty
 AllowShortIfStatementsOnASingleLine: false
 AllowShortLoopsOnASingleLine: false
-AlwaysBreakTemplateDeclarations: true
+AlwaysBreakAfterDefinitionReturnType: false
 AlwaysBreakBeforeMultilineStrings: false
-BreakBeforeBinaryOperators: false
+AlwaysBreakTemplateDeclarations: true
+BinPackArguments: true
+BinPackParameters: false
+BreakBeforeBinaryOperators: All
+BreakBeforeBraces: Allman
 BreakBeforeTernaryOperators: true
 BreakConstructorInitializersBeforeComma: true
-BinPackParameters: true
 ColumnLimit:     80
+# This line keeps any comment with a doxygen flag from being reformatted.
+CommentPragmas: "@"
 ConstructorInitializerAllOnOneLineOrOnePerLine: true
-DerivePointerBinding: true
-ExperimentalAutoDetectBinPacking: true
+ConstructorInitializerIndentWidth: 0
+ContinuationIndentWidth: 4
+Cpp11BracedListStyle: false
+# This next line looks to be a rename of DerivePointerBinding
+DerivePointerAlignment: false
+# DerivePointerBinding: false
+DisableFormat: false
+ExperimentalAutoDetectBinPacking: false
+# This line allows the specification of macros that expand to for statements.
+ForEachMacros: 
 IndentCaseLabels: false
+IndentWidth:     2
+IndentWrappedFunctionNames: true
+KeepEmptyLinesAtTheStartOfBlocks: false
+Language: Cpp
 MaxEmptyLinesToKeep: 2
 NamespaceIndentation: None
+ObjCBlockIndentWidth: 2
+# ObjCSpaceAfterProperty: 2 -- not in 3.6
 ObjCSpaceBeforeProtocolList: true
-PenaltyBreakBeforeFirstCallParameter: 19
+PenaltyBreakBeforeFirstCallParameter: 30
 PenaltyBreakComment: 60
 PenaltyBreakString: 1000
 PenaltyBreakFirstLessLess: 120
-PenaltyExcessCharacter: 1000000
+PenaltyExcessCharacter: 10000
 PenaltyReturnTypeOnItsOwnLine: 60
-PointerBindsToType: true
-SpacesBeforeTrailingComments: 1
-Cpp11BracedListStyle: false
-Standard:        Cpp03
-IndentWidth:     2
-TabWidth:        8
-UseTab:          Never
-BreakBeforeBraces: Allman
-IndentFunctionDeclarationAfterType: false
-SpacesInParentheses: false
-SpacesInAngles:  false
-SpaceInEmptyParentheses: false
-SpacesInCStyleCastParentheses: false
-SpaceAfterControlStatementKeyword: true
+# This next line looks to be a rename of PointerBindsToType
+PointerAlignment: Left
+# PointerBindsToType: true
+SpaceAfterCStyleCast: false
 SpaceBeforeAssignmentOperators: true
-ContinuationIndentWidth: 4
+SpaceBeforeParens: ControlStatements
+SpaceInEmptyParentheses: false
+SpacesBeforeTrailingComments: 2
+SpacesInAngles:  false
+SpacesInCStyleCastParentheses: false
+SpacesInContainerLiterals: true
+SpacesInParentheses: false
+SpacesInSquareBrackets: false
+Standard:        Cpp03
+TabWidth: 8
+UseTab: Never
 ...
-
