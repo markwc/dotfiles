@@ -24,6 +24,13 @@
    cd .emacs.d/lisp
    git clone https://github.com/markhepburn/tags-view.git
    git clone https://github.org/company-mode/company-mode.git
+** Development tools
+   sudo apt-get install doxygen
+   sudo apt-get install llvm
+   sudo apt-cache search clang-format
+   sudo apt-get install clang-format-3.6
+   sudo ln -fs /usr/bin/clang-format--3.6 /usr/bin/clang-format
+   sudo ln -fs /usr/bin/clang-format-diff--3.6 /usr/bin/clang-format-dif
 * Acer Aspire 3000
 ** Linux Distro
   xubuntu 12.04
