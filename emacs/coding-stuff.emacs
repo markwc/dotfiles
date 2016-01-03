@@ -5,7 +5,7 @@
 (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
 (add-to-list 'auto-mode-alist '("\\.c\\'" . c++-mode))
 
-(load "clang-format")
+(load "clang-format.el")
 
 (require 'tags-view)
 
@@ -72,6 +72,72 @@ turned on."
   (c-set-offset 'arglist-intro '+))
 (add-hook 'c++-mode-common-hook 'my-indent-setup)
 (add-hook 'after-init-hook 'global-company-mode)
+
+;;====================================================================
+;; Python stuff.
+;;====================================================================
+
+(load-library "python")
+
+(autoload 'python-mode "python-mode" "Python Mode." t)
+(add-to-list 'auto-mode-alist '("\\.py\\'" . python-mode))
+(add-to-list 'interpreter-mode-alist '("python" . python-mode))
+
+(setq interpreter-mode-alist
+      (cons '("python" . python-mode)
+            interpreter-mode-alist)
+      python-mode-hook
+      '(lambda () (progn
+                    (set-variable 'py-indent-offset 4)
+                    (set-variable 'indent-tabs-mode nil))))
+
+;; Highlight character at "fill-column" position.
+(require 'column-marker)
+(set-face-background 'column-marker-1 "red")
+(add-hook 'python-mode-hook
+          (lambda () (interactive)
+            (column-marker-1 fill-column)))
+
+; Setup for Flymake code checking.
+(require 'flymake)
+(load-library "flymake-cursor")
+
+;; Script that flymake uses to check code. This script must be
+;; present in the system path.
+(setq pycodechecker "pychecker")
+
+(when (load "flymake" t)
+  (defun flymake-pycodecheck-init ()
+    (let* ((temp-file (flymake-init-create-temp-buffer-copy
+                       'flymake-create-temp-inplace))
+           (local-file (file-relative-name
+                        temp-file
+                        (file-name-directory buffer-file-name))))
+      (list pycodechecker (list local-file))))
+  (add-to-list 'flymake-allowed-file-name-masks
+               '("\\.py\\'" flymake-pycodecheck-init)))
+
+(add-hook 'python-mode-hook 'flymake-mode)
+
+;; Remove trailing whitespace manually by typing C-t C-w.
+(add-hook 'python-mode-hook
+          (lambda ()
+            (local-set-key (kbd "C-t C-w")
+                           'delete-trailing-whitespace)))
+
+;; Automatically remove trailing whitespace when file is saved.
+(add-hook 'python-mode-hook
+      (lambda()
+        (add-hook 'local-write-file-hooks
+              '(lambda()
+                 (save-excursion
+                   (delete-trailing-whitespace))))))
+
+;; Use M-SPC (use ALT key) to make sure that words are separated by
+;; just one space. Use C-x C-o to collapse a set of empty lines
+;; around the cursor to one empty line. Useful for deleting all but
+;; one blank line at end of file. To do this go to end of file (M->)
+;; and type C-x C-o.
 
 ;;====================================================================
 ;; C-mode variables and bindings:
