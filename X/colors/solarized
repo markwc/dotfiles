@@ -35,6 +35,9 @@ URxvt.cursorUnderline: false
 URxvt.termName: rxvt-256color
 
 !-----------------------------------------------------------------------------
+xterm*font:     *-fixed-*-*-*-18-*
+
+!-----------------------------------------------------------------------------
 ! Drop in Solarized colorscheme for Xresources/Xdefaults
 ! http://ethanschoonover.com/solarized
 !-----------------------------------------------------------------------------
