@@ -1,7 +1,9 @@
 cd ~/.emacs.d/
-touce site-specific.el
-touch lisp/clearcase.el
+touch site-specific.el
+mkdir lisp
 
+cd ~/.emacs.d/lisp
+git clone https://github.com/markhepburn/tags-view.git
 git clone https://github.com/company-mode/company-mode.git
 
 sudo apt-get install org-mode
