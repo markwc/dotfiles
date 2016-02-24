@@ -7,18 +7,14 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(ansi-color-names-vector
-   ["#242424" "#e5786d" "#95e454" "#cae682" "#8ac6f2" "#333366" "#ccaa8f" "#f6f3e8"])
+ '(ansi-color-names-vector ["#242424" "#e5786d" "#95e454" "#cae682" "#8ac6f2" "#333366" "#ccaa8f" "#f6f3e8"])
  '(c-report-syntactic-errors t)
  '(column-number-mode t)
  '(custom-enabled-themes (quote (sunburst)))
- '(custom-safe-themes
-   (quote
-    ("645599a2aab022fd7677124515a3104a60ba64d2cafdd77a6e7703f8ae97250c" default)))
+ '(custom-safe-themes (quote ("645599a2aab022fd7677124515a3104a60ba64d2cafdd77a6e7703f8ae97250c" default)))
+ '(custom-theme-load-path (quote ("~/.emacs.themes" t)))
  '(inhibit-startup-screen t)
- '(mediawiki-site-alist
-   (quote
-    (("WikiMark" "http://wiki.markwc.com/" "Mark Christiansen" "" "Main_Page"))))
+ '(mediawiki-site-alist (quote (("WikiMark" "http://wiki.markwc.com/" "Mark Christiansen" "" "Main_Page"))))
  '(show-paren-mode t)
  '(user-mail-address "mail@markwc.com"))
 
@@ -31,7 +27,6 @@
 (add-to-list 'load-path "~/.emacs.d/lisp/company-mode")
 (add-to-list 'load-path "~/.emacs.d/lisp/org-mode/lisp")
 (add-to-list 'load-path "~/.emacs.d/lisp/tags-view")
-(add-to-list 'custom-theme-load-path "~/.emacs.themes")
 
 ;;====================================================================
 ;; Basic setup.
@@ -216,6 +211,3 @@ Note the weekly scope of the command's precision.")
 (load "~/.dotfiles/emacs/org-mode.emacs")
 (load "~/.dotfiles/emacs/latex-mode.emacs")
 (load "~/.emacs.d/site-specific")
-
-(load-theme 'sunburst t)
-
