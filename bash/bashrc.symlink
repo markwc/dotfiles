@@ -16,12 +16,12 @@ ulimit -c unlimited
 
 # Add our own paths
 PATH=$HOME/.dotfiles/bin:$HOME/bin:$PATH
-CDPATH=$HOME:$Documents
+CDPATH=$CDPATH:$HOME:$Documents
 LD_LIBRARY_PATH=$HOME/lib:$LD_LIBRARY_PATH
 MANPATH=$HOME/share/man:$MANPATH
 
 # get all of our .bash files
-for f in `find $HOME/.dotfiles/ -name '*.bash'`
+for f in `find $HOME/.dotfiles/bash/ -name '*.bash'`
 do
   echo "Sourcing $f"
   source $f
