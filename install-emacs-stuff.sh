@@ -1,6 +1,5 @@
 #/bin/bash
 
-sudo apt-get -y install emacs23
 sudo apt-get -y install global
 sudo apt-get -y install org-mode
 sudo apt-get -y install pyflakes
