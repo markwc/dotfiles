@@ -1,5 +1,7 @@
 #/bin/bash
 
+sudo apt-get -y install emacs23
+
 cd ~/.emacs.d/
 touch site-specific.el
 mkdir lisp

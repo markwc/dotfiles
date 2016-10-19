@@ -38,3 +38,7 @@ if [ $OSTYPE == "linux" ]; then
    eval `dircolors -b $HOME/.dir_colors`
 fi
 
+set_term_title() {
+   echo -n -e "\033]0;$1\007"
+}
+
