@@ -211,6 +211,11 @@ Note the weekly scope of the command's precision.")
 (require 'sql)
 (require 'mediawiki)
 
+(global-set-key [S-left] 'windmove-left) 
+(global-set-key [S-right] 'windmove-right) 
+(global-set-key [S-up] 'windmove-up) 
+(global-set-key [S-down] 'windmove-down)
+
 (load "~/.dotfiles/emacs/coding-stuff.emacs")
 (load "~/.dotfiles/emacs/matlab-mode.emacs")
 (load "~/.dotfiles/emacs/org-mode.emacs")
