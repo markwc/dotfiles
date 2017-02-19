@@ -18,8 +18,8 @@
 	untracked = cyan
 
 [user]
-	name = 
-	email = 
+	name = Mark Christiansen
+	email = markwc@byu.net
 
 [alias]
 	st = status
