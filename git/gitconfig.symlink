@@ -19,7 +19,7 @@
 
 [user]
 	name = Mark Christiansen
-	email = mail@markwc.com
+	email = markwc@skydrop.com
 
 [alias]
 	st = status
@@ -36,4 +36,13 @@
 [http]
 	sslVerify = false
 [core]
-	editor = emacs
+	editor = vim
+	excludesfile = /Users/markwc/.gitignore_global
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
+[commit]
+	template = /Users/markwc/.stCommitMsg
